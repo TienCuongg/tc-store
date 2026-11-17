@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, shrink-to-fit=no">
+  <title>Giỏ Hàng & Đặt Hàng - TC SPORT.vn Chính Hãng</title>
+  <meta name="description" content="Giỏ hàng và thông tin thanh toán đặt hàng tại TC SPORT.vn. Cam kết 100% hàng chính hãng, đổi hàng 30 ngày, bảo hành 12 tháng.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23C2410C'><polygon points='13 2 3 14 12 14 11 22 21 10 12 10 13 2'/></svg>">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-warm-beige">
+
+  <!-- =========================================================================
+       1. HEADER CHUNG ĐỒNG BỘ
+       ========================================================================= -->
+  <header class="site-header" id="site-header">
+    <div class="top-announcement-bar">
+      <div class="container top-bar-row">
+        <div class="top-bar-left">
+          <span>🛡️ Cam kết 100% Chính Hãng (Đền gấp 10 lần)</span>
+          <span class="sep">•</span>
+          <span>📞 Hotline: <b>0973.711.868</b> (8:30 - 21:30)</span>
+        </div>
+        <div class="top-bar-right">
+          <!-- 5 Header Colors Theme Picker -->
+          <div id="theme-picker-wrap" style="position: relative; display: inline-block;">
+            <button type="button" class="theme-toggle-btn" onclick="toggleThemePicker(event)" title="Chọn màu sắc Header">
+              🎨 <span id="theme-toggle-label">Màu: Be Vàng</span> ▾
+            </button>
+            <div class="theme-picker-popover" id="theme-picker-popover">
+              <div class="theme-pick-item" onclick="setHeaderTheme('theme-beige')">
+                <span class="theme-color-dot" style="background: #F3EADB;"></span> Be Vàng Sáng (Mặc định)
+              </div>
+              <div class="theme-pick-item" onclick="setHeaderTheme('theme-navy')">
+                <span class="theme-color-dot" style="background: #0A437F;"></span> Xanh Navy MyShoes
+              </div>
+              <div class="theme-pick-item" onclick="setHeaderTheme('theme-espresso')">
+                <span class="theme-color-dot" style="background: #1F1916;"></span> Nâu Espresso Sang Trọng
+              </div>
+              <div class="theme-pick-item" onclick="setHeaderTheme('theme-emerald')">
+                <span class="theme-color-dot" style="background: #182B1C;"></span> Xanh Rêu Forest
+              </div>
+              <div class="theme-pick-item" onclick="setHeaderTheme('theme-burgundy')">
+                <span class="theme-color-dot" style="background: #38121E;"></span> Đỏ Rượu Burgundy
+              </div>
+            </div>
+          </div>
+          <span class="sep">•</span>
+          <a href="javascript:void(0)" onclick="openSizeGuideModal()">Bảng đo size chuẩn</a>
+          <span class="sep">•</span>
+          <a href="javascript:void(0)" onclick="showToast('Hỗ trợ đổi hàng 30 ngày hoàn toàn miễn phí', 'info')">Đổi hàng 30 ngày</a>
+          <span class="sep">•</span>
+          <a href="javascript:void(0)" onclick="showToast('Bảo hành keo chỉ chính hãng 12 tháng', 'info')">Bảo hành 12 tháng</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-header-strip">
+      <div class="container main-header-row">
+        <!-- Brand Logo -->
+        <a href="index.html" class="brand-logo" aria-label="TC SPORT Trang chủ">
+          <div class="logo-text-title">tc<span>sport</span></div>
+          <div class="logo-sub-tag">Giày chính hãng!<span class="dot-badge">vn</span></div>
+        </a>
+
+        <!-- Search Bar -->
+        <div class="header-search-box">
+          <div class="search-input-wrap">
+            <input type="text" id="search-input-main" class="search-input-control" placeholder="Tìm kiếm giày thể thao Nike, Adidas, Asics..." autocomplete="off">
+            <button type="button" class="btn-search-round" onclick="window.location.href='category.html'">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Side Links -->
+        <div class="header-actions-right">
+          <div class="header-action-btn" onclick="handleAccountClick()" title="Tài khoản cá nhân" role="button" tabindex="0">
+            <div class="action-circle-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </div>
+            <div class="action-caption md-visible">
+              <span class="caption-primary">Tài khoản</span>
+              <span class="caption-secondary">Đăng nhập</span>
+            </div>
+          </div>
+
+          <a href="cart.html" class="header-action-btn cart-btn-action" title="Xem giỏ hàng" style="border-color: var(--color-terracotta);">
+            <div class="action-circle-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+              <span class="cart-pill-badge" id="cart-counter">1</span>
+            </div>
+            <div class="action-caption md-visible">
+              <span class="caption-primary">Giỏ hàng</span>
+              <span class="caption-secondary">Đang đặt hàng</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Centered Menu Strip -->
+    <nav class="category-menu-strip" aria-label="Danh mục thương hiệu">
+      <div class="container menu-strip-inner">
+        <ul class="nav-brand-links">
+          <!-- Lọc Sản Phẩm (Chuyển trực tiếp đến trang lọc) -->
+          <li>
+            <a href="category.html" class="menu-brand-link" style="color: var(--color-terracotta); font-weight: 800;">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24" style="fill: var(--color-terracotta);"><path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/></svg>
+              <span>Lọc Sản Phẩm</span>
+            </a>
+          </li>
+          <li class="nav-item-dropdown">
+            <a href="category.html?brand=Nike" class="menu-brand-link">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24"><path d="M21.7 8.3c-2.4 2.8-6.8 6.5-12.8 9.5-3.1 1.5-6.7 2.2-8.9 1.1-1.3-.7-1.4-2.2-.2-3.8 1.4-1.9 4-3.8 7-5.3 5.4-2.6 11.2-3.8 14.9-1.5z"/></svg>
+              <span>Giày Nike</span>
+            </a>
+          </li>
+          <li class="nav-item-dropdown">
+            <a href="category.html?brand=Adidas" class="menu-brand-link">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24"><polygon points="1.5,19 5.5,19 9.5,12 5.5,12"/><polygon points="8,19 12,19 16,8 12,8"/><polygon points="14.5,19 18.5,19 22.5,4 18.5,4"/></svg>
+              <span>Giày Adidas</span>
+            </a>
+          </li>
+          <li class="nav-item-dropdown">
+            <a href="category.html?brand=Asics" class="menu-brand-link">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.5c-3 .5-5.5-1.5-5.5-4s2-4.5 4.5-4.5c1.5 0 2.5.5 3 1l-1.5 1.5c-.5-.5-1-.7-1.5-.7-1.5 0-2.5 1-2.5 2.5s1 2.5 2.5 2.5c1 0 1.5-.5 2-1v-.8h-2v-1.8h3.8v3.3c-.8 1.2-2 1.8-3.8 2z"/></svg>
+              <span>Giày Asics</span>
+            </a>
+          </li>
+          <li class="nav-item-dropdown">
+            <a href="category.html?brand=Lacoste" class="menu-brand-link">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24"><path d="M19 8c-1-1-3-1-4-1-2 0-3 1-5 2-1 0-2 0-3-1-1 0-2 1-2 2s1 2 2 2h1c1 1 2 2 4 2 3 0 5-1 6-2 1-1 2-2 1-4zm-8 2c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z"/></svg>
+              <span>Giày Lacoste</span>
+            </a>
+          </li>
+          <li class="nav-item-dropdown">
+            <a href="category.html?brand=Puma" class="menu-brand-link">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24"><path d="M19.5 5.5c-.8.6-1.8.8-2.7.7-1.2-.1-2.3-.7-3.2-1.5-.5-.4-.9-.9-1.2-1.4-.4-.7-.9-.9-1.6-.6-.7.3-1.1.9-1.3 1.6-.3 1.1-.3 2.2 0 3.3.4 1.3 1.2 2.3 2.3 3.1 1.6 1.2 3.5 1.7 5.5 1.6 1-.1 2-.3 3-.7-.2-.7-.5-1.4-1-2-.6-.8-1.5-1.4-2.5-1.7-.8-.2-1.7-.1-2.5.2-.4.1-.7.2-1 .4.2-.6.5-1.2 1-1.7.7-.7 1.6-1.1 2.6-1.2 1.2-.1 2.4.3 3.4 1 .3-.7.5-1.5.6-2.3 0-.1 0-.3-.1-.4-.3-.3-.8-.3-1.3.1z"/></svg>
+              <span>Giày Puma</span>
+            </a>
+          </li>
+          <li>
+            <a href="category.html?category=pickleball" class="menu-brand-link">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24"><path d="M14.5 2C11.5 2 9 4.5 9 7.5c0 1.2.4 2.3 1.1 3.2L4 16.8c-.8.8-.8 2 0 2.8l.4.4c.8.8 2 .8 2.8 0l6.1-6.1c.9.7 2 1.1 3.2 1.1 3 0 5.5-2.5 5.5-5.5S17.5 2 14.5 2zm-9 16.5l-.3-.3c-.2-.2-.2-.5 0-.7l3.8-3.8.9.9-3.7 3.9c-.2.2-.5.2-.7 0zm9-8c-2 0-3.5-1.5-3.5-3.5S12.5 3.5 14.5 3.5 18 5 18 7s-1.5 3.5-3.5 3.5z"/></svg>
+              <span>Pickleball</span>
+            </a>
+          </li>
+          <li>
+            <a href="category.html?category=running" class="menu-brand-link">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7z"/></svg>
+              <span>Chạy Bộ</span>
+            </a>
+          </li>
+          <li>
+            <a href="category.html?sale=true" class="menu-brand-link" style="color: #DC2626;">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24" style="fill: #DC2626;"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+              <span>Sale Khủng</span>
+            </a>
+          </li>
+          <li>
+            <a href="blog.html" class="menu-brand-link">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+              <span>Bảng Tin TC</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- =========================================================================
+       2. MAIN CONTENT: GIỎ HÀNG & FORM ĐẶT HÀNG TRỰC TIẾP
+       ========================================================================= -->
+  <main class="page-wrapper-main">
+    <div class="container">
+      
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb-nav">
+        <a href="index.html">Trang chủ</a>
+        <span>›</span>
+        <span style="color: var(--text-main); font-weight: 700;">Giỏ hàng & Đặt hàng</span>
+      </nav>
+
+      <h1 class="page-title-h1">GIỎ HÀNG CỦA BẠN</h1>
+
+      <div class="cart-layout-grid">
+        
+        <!-- Cột trái: Danh sách sản phẩm -->
+        <div class="cart-items-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <h2 style="font-size: 1.1rem; font-weight: 800;">Sản phẩm đã chọn (<span id="cart-page-count">1</span>)</h2>
+            <a href="category.html" style="font-size: 0.84rem; color: var(--color-terracotta); font-weight: 700;">+ Mua thêm sản phẩm khác</a>
+          </div>
+
+          <!-- Free Shipping Progress -->
+          <div class="free-shipping-box" style="margin-bottom: 20px;">
+            <div class="shipping-meter-text" id="cart-page-shipping-status">Đơn hàng của bạn đã đạt điều kiện MIỄN PHÍ VẬN CHUYỂN TOÀN QUỐC! 🎉</div>
+            <div class="shipping-meter-track">
+              <div class="shipping-meter-fill" style="width: 100%;"></div>
+            </div>
+          </div>
+
+          <!-- Table of Cart Items -->
+          <table class="cart-table" id="cart-page-table">
+            <thead>
+              <tr>
+                <th>SẢN PHẨM</th>
+                <th style="text-align: center;">ĐƠN GIÁ</th>
+                <th style="text-align: center;">SỐ LƯỢNG</th>
+                <th style="text-align: right;">THÀNH TIỀN</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="cart-page-table-body">
+              <!-- Rendered via JavaScript -->
+            </tbody>
+          </table>
+
+          <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #E5E7EB; padding-top: 16px;">
+            <a href="index.html" class="btn-calc-submit" style="background: #E5E7EB; color: #374151; padding: 8px 16px; font-size: 0.84rem; border-radius: var(--radius-sm);">
+              ‹ Tiếp tục mua sắm
+            </a>
+            <button type="button" onclick="clearFullCart()" style="font-size: 0.82rem; color: #DC2626; font-weight: 700; text-decoration: underline;">
+              Xoá toàn bộ giỏ hàng
+            </button>
+          </div>
+        </div>
+
+        <!-- Cột phải: Tóm tắt đơn hàng & Form đặt hàng -->
+        <div class="cart-summary-card">
+          <h2 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 16px;">THÔNG TIN ĐẶT HÀNG</h2>
+          
+          <!-- Voucher input -->
+          <div class="voucher-input-row" style="margin-bottom: 16px;">
+            <input type="text" id="cart-page-voucher" class="voucher-field" placeholder="Mã giảm giá: TC50K" value="TC50K">
+            <button type="button" class="btn-apply-voucher" onclick="applyCartPageVoucher()">Áp Dụng</button>
+          </div>
+
+          <!-- Cost recap -->
+          <div class="cart-cost-summary" style="margin-bottom: 20px;">
+            <div class="summary-line">
+              <span>Tạm tính</span>
+              <span id="cart-page-subtotal">2.590.000₫</span>
+            </div>
+            <div class="summary-line">
+              <span>Mã giảm giá TC50K</span>
+              <span class="text-green" id="cart-page-discount">-50.000₫</span>
+            </div>
+            <div class="summary-line">
+              <span>Phí giao hàng</span>
+              <span class="text-green" id="cart-page-shipping">0₫ (Freeship)</span>
+            </div>
+            <div class="summary-line total-line">
+              <span>Tổng thanh toán</span>
+              <span class="final-total" id="cart-page-total">2.540.000₫</span>
+            </div>
+          </div>
+
+          <!-- Direct Order Form -->
+          <form onsubmit="submitCartOrder(event)" style="border-top: 1px solid #E5E7EB; padding-top: 16px;">
+            <div class="form-group" style="margin-bottom: 12px;">
+              <label class="form-label" style="font-size: 0.8rem; font-weight: 700; display: block; margin-bottom: 4px;">Họ và tên người nhận *</label>
+              <input type="text" id="order-user-name" class="form-control" style="width: 100%; padding: 8px 12px; border: 1px solid var(--bg-cream-border); border-radius: var(--radius-sm);" required value="Trần Quốc Tiến">
+            </div>
+
+            <div class="form-group" style="margin-bottom: 12px;">
+              <label class="form-label" style="font-size: 0.8rem; font-weight: 700; display: block; margin-bottom: 4px;">Số điện thoại liên hệ *</label>
+              <input type="tel" id="order-user-phone" class="form-control" style="width: 100%; padding: 8px 12px; border: 1px solid var(--bg-cream-border); border-radius: var(--radius-sm);" required value="0973711868">
+            </div>
+
+            <div class="form-group" style="margin-bottom: 12px;">
+              <label class="form-label" style="font-size: 0.8rem; font-weight: 700; display: block; margin-bottom: 4px;">Địa chỉ giao hàng chi tiết *</label>
+              <input type="text" id="order-user-address" class="form-control" style="width: 100%; padding: 8px 12px; border: 1px solid var(--bg-cream-border); border-radius: var(--radius-sm);" required value="249 Xã Đàn, Phường Đống Đa, Hà Nội">
+            </div>
+
+            <div class="form-group" style="margin-bottom: 16px;">
+              <label class="form-label" style="font-size: 0.8rem; font-weight: 700; display: block; margin-bottom: 6px;">Phương thức thanh toán *</label>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <label style="display: flex; align-items: center; gap: 8px; font-size: 0.84rem; cursor: pointer;">
+                  <input type="radio" name="pay-method" value="cod" checked>
+                  <span>💵 Nhận hàng kiểm tra rồi thanh toán (COD)</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 8px; font-size: 0.84rem; cursor: pointer;">
+                  <input type="radio" name="pay-method" value="vietqr">
+                  <span>📱 Quét mã VietQR (Ngân hàng / MoMo)</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 8px; font-size: 0.84rem; cursor: pointer;">
+                  <input type="radio" name="pay-method" value="vnpay">
+                  <span>💳 Cổng thanh toán VNPAY / Thẻ Visa</span>
+                </label>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-primary-checkout" style="width: 100%; padding: 14px; font-size: 0.95rem; font-weight: 800; border-radius: var(--radius-md);">
+              XÁC NHẬN ĐẶT HÀNG NGAY
+            </button>
+            <div style="text-align: center; margin-top: 10px; font-size: 0.74rem; color: var(--text-muted);">
+              🛡️ Đổi hàng 30 ngày tận nơi • Bảo hành keo chỉ 12 tháng
+            </div>
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- SIZE GUIDE MODAL (Bảng đo không có EU) -->
+  <div class="modal-backdrop" id="size-guide-modal" onclick="closeSizeGuideModal()">
+    <div class="modal-dialog sizeguide-dialog" onclick="event.stopPropagation()">
+      <div class="modal-dialog-header">
+        <h3>HƯỚNG DẪN ĐO VÀ CHỌN SIZE GIÀY CHUẨN XÁC</h3>
+        <button type="button" class="btn-close-modal" onclick="closeSizeGuideModal()">✕</button>
+      </div>
+      <div class="modal-dialog-body">
+        <div style="background: #FDF9F0; border: 1px dashed var(--bg-cream-border); border-radius: var(--radius-md); padding: 14px 18px; margin-bottom: 16px;">
+          <h4 style="font-size: 0.92rem; font-weight: 800; color: var(--color-terracotta); margin-bottom: 8px;">📏 3 BƯỚC ĐO CHIỀU DÀI BÀN CHÂN TẠI NHÀ</h4>
+          <ol style="padding-left: 20px; font-size: 0.82rem; line-height: 1.6; color: var(--text-main);">
+            <li><b>Bước 1:</b> Đặt bàn chân trần lên tờ giấy A4 phẳng sát mép tường.</li>
+            <li><b>Bước 2:</b> Dùng bút vạch 2 điểm: gót chân và điểm ngón chân dài nhất.</li>
+            <li><b>Bước 3:</b> Dùng thước đo khoảng cách 2 điểm (cm) rồi đối chiếu bảng size bên dưới.</li>
+          </ol>
+        </div>
+
+        <div class="size-calc-card">
+          <div class="calc-label">Nhập chiều dài bàn chân của bạn (cm):</div>
+          <div class="calc-input-row">
+            <input type="number" id="foot-cm-input" class="calc-input" placeholder="VD: 25.5" step="0.1" min="20" max="32">
+            <button type="button" class="btn-calc-submit" onclick="computeShoeSize()">Tính Size Ngay</button>
+          </div>
+          <div class="calc-result-box" id="calc-result-display">
+            Vui lòng nhập chiều dài bàn chân để nhận tư vấn size chuẩn xác cho tất cả dòng giày thể thao Nike, Adidas, Asics, Lacoste, Puma.
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="size-conversion-table">
+            <thead>
+              <tr>
+                <th>Dài Chân (cm)</th>
+                <th>Size Giày Chuẩn</th>
+                <th>Nike (US)</th>
+                <th>Adidas (US)</th>
+                <th>Asics (US)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>23.5 - 24.0 cm</td><td><b style="color: var(--color-terracotta);">Size 38</b></td><td>5.5</td><td>5.5</td><td>5.5</td></tr>
+              <tr><td>24.0 - 24.5 cm</td><td><b style="color: var(--color-terracotta);">Size 39</b></td><td>6.5</td><td>6.5</td><td>6.5</td></tr>
+              <tr><td>24.5 - 25.0 cm</td><td><b style="color: var(--color-terracotta);">Size 40</b></td><td>7.0</td><td>7.0</td><td>7.0</td></tr>
+              <tr><td>25.0 - 25.5 cm</td><td><b style="color: var(--color-terracotta);">Size 41</b></td><td>8.0</td><td>8.0</td><td>8.0</td></tr>
+              <tr><td>25.5 - 26.0 cm</td><td><b style="color: var(--color-terracotta);">Size 42</b></td><td>8.5</td><td>8.5</td><td>8.5</td></tr>
+              <tr><td>26.0 - 26.5 cm</td><td><b style="color: var(--color-terracotta);">Size 43</b></td><td>9.5</td><td>9.5</td><td>9.5</td></tr>
+              <tr><td>26.5 - 27.0 cm</td><td><b style="color: var(--color-terracotta);">Size 44</b></td><td>10.0</td><td>10.0</td><td>10.0</td></tr>
+              <tr><td>27.0 - 27.5 cm</td><td><b style="color: var(--color-terracotta);">Size 45</b></td><td>11.0</td><td>11.0</td><td>11.0</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Wrapper -->
+  <div class="toast-wrapper" id="toast-wrapper"></div>
+
+  <!-- =========================================================================
+       3. FOOTER ĐỒNG BỘ
+       ========================================================================= -->
+  <footer class="site-footer-full">
+    <div class="container">
+      <div class="footer-top-columns">
+        <div>
+          <div class="footer-brand-title">TC SPORT<span>.vn</span></div>
+          <div class="footer-tagline">Giày chính hãng! • VN</div>
+          <p class="footer-about-text">
+            TC SPORT là nền tảng mua sắm giày chính hãng hàng đầu Việt Nam với hơn 100.000 khách hàng đã tin tưởng và lựa chọn.
+          </p>
+        </div>
+        <div>
+          <h4 class="footer-heading">CHÍNH SÁCH</h4>
+          <ul class="footer-links-list">
+            <li><a href="cart.html">Thanh toán & giao hàng</a></li>
+            <li><a href="javascript:void(0)" onclick="openSizeGuideModal()">Bảng đo kích cỡ giày</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">VỀ TC SPORT</h4>
+          <ul class="footer-links-list">
+            <li><a href="blog.html">Tin tức & Bảng tin TC Feed</a></li>
+            <li><a href="profile.html">Hồ sơ tài khoản</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">TỔNG ĐÀI HỖ TRỢ</h4>
+          <div class="footer-hotline-card">
+            <div class="hotline-row">
+              <span>Mua hàng:</span>
+              <b><a href="tel:0973711868" style="color: #F87171;">📞 0973711868</a></b>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-middle-divider"></div>
+
+      <div class="footer-bottom-columns">
+        <div>
+          <div class="company-legal-title">CÔNG TY CỔ PHẦN ĐẦU TƯ VÀ CÔNG NGHỆ TCGROUP</div>
+          <div>Địa chỉ: 249 Xã Đàn, Phường Đống Đa, Hà Nội.</div>
+          <div>© 2016 - 2026 TCSPORT.vn. All rights reserved.</div>
+        </div>
+        <div>
+          <div style="font-size: 0.8rem; font-weight: 800; color: #E5E7EB; text-transform: uppercase;">CÙNG HỆ SINH THÁI TCGROUP</div>
+          <div style="font-size: 0.75rem; color: #9CA3AF; margin-top: 4px;">TCWork • TCStyle.vn</div>
+        </div>
+        <div class="trust-badges-wrap">
+          <div class="badge-gov-declared">
+            <span>ĐÃ THÔNG BÁO BỘ CÔNG THƯƠNG</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- AUTH MODAL (ĐĂNG NHẬP / ĐĂNG KÝ / ĐĂNG NHẬP GOOGLE) -->
+  <div class="modal-backdrop" id="auth-modal" onclick="closeAuthModal()">
+    <div class="modal-dialog auth-dialog" onclick="event.stopPropagation()">
+      
+      <!-- Close Button (Absolute positioned for pure symmetry) -->
+      <button type="button" class="btn-close-modal auth-close-btn" onclick="closeAuthModal()" title="Đóng cửa sổ">✕</button>
+
+      <!-- 2 Tabs Switcher (Exactly 50% / 50% Symmetrical) -->
+      <div class="auth-tabs-header">
+        <button type="button" class="auth-tab-btn active" id="btn-tab-login" onclick="switchAuthTab('login')">
+          ĐĂNG NHẬP
+        </button>
+        <button type="button" class="auth-tab-btn" id="btn-tab-register" onclick="switchAuthTab('register')">
+          ĐĂNG KÝ MỚI
+        </button>
+      </div>
+
+      <div class="modal-dialog-body">
+        <button type="button" class="btn-google-login" onclick="handleGoogleLogin()">
+          <svg class="google-icon-svg" width="20" height="20" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          <span>Đăng nhập nhanh với Google</span>
+        </button>
+
+        <div class="auth-social-divider">
+          <span>HOẶC SỬ DỤNG EMAIL / SĐT</span>
+        </div>
+
+        <form id="auth-tab-login-form" onsubmit="handleAuthLogin(event)">
+          <div class="form-group">
+            <label class="form-label">Email hoặc Số điện thoại *</label>
+            <input type="text" id="auth-login-identity" class="form-control" required placeholder="Nhập email hoặc SĐT..." value="khachhang@tcsport.vn">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mật khẩu *</label>
+            <input type="password" id="auth-login-password" class="form-control" required placeholder="Nhập mật khẩu..." value="123456">
+          </div>
+          <div class="auth-footer-help">
+            <label style="display: flex; align-items: center; gap: 7px; cursor: pointer; font-size: 0.85rem; color: var(--text-muted);">
+              <input type="checkbox" checked style="accent-color: var(--color-terracotta); width: 16px; height: 16px;"> Ghi nhớ đăng nhập
+            </label>
+            <a href="javascript:void(0)" onclick="showToast('Vui lòng liên hệ hotline 0973.711.868 để lấy lại mật khẩu nhanh!', 'info')" style="color: var(--color-terracotta); font-weight: 700; text-decoration: none;">Quên mật khẩu?</a>
+          </div>
+          <button type="submit" class="auth-submit-btn">
+            ĐĂNG NHẬP NGAY
+          </button>
+        </form>
+
+        <form id="auth-tab-register-form" onsubmit="handleAuthRegister(event)" style="display: none;">
+          <div class="form-group">
+            <label class="form-label">Họ và tên của bạn *</label>
+            <input type="text" id="auth-reg-name" class="form-control" required placeholder="VD: Nguyễn Văn An">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Số điện thoại *</label>
+            <input type="tel" id="auth-reg-phone" class="form-control" required placeholder="VD: 0912345678">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Địa chỉ Email *</label>
+            <input type="email" id="auth-reg-email" class="form-control" required placeholder="VD: yourname@gmail.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mật khẩu mới *</label>
+            <input type="password" id="auth-reg-password" class="form-control" required placeholder="Tối thiểu 6 ký tự..." minlength="6" value="123456">
+          </div>
+          <button type="submit" class="auth-submit-btn" style="background: var(--color-terracotta);">
+            TẠO TÀI KHOẢN MỚI
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING VERTICAL DOCK (Right side beige space with dynamic wiggle animation) -->
+  <aside class="floating-vertical-dock" aria-label="Thanh công cụ nhanh">
+    <!-- 1. Tìm kiếm chọn lọc -->
+    <a href="category.html" class="dock-action-btn btn-dock-filter dock-wiggle-1" aria-label="Tìm kiếm chọn lọc">
+      <svg viewBox="0 0 24 24"><path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/></svg>
+      <span class="dock-tooltip">🔍 Tìm kiếm chọn lọc</span>
+    </a>
+
+    <!-- 2. Giỏ hàng nhanh -->
+    <a href="cart.html" class="dock-action-btn btn-dock-cart dock-wiggle-2" aria-label="Xem giỏ hàng">
+      <svg viewBox="0 0 24 24"><path d="M19 6h-2c0-2.76-2.24-5-5-5S7 3.24 7 6H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-7-3c1.66 0 3 1.34 3 3H9c0-1.66 1.34-3 3-3zm7 17H5V8h14v12zm-7-8c-1.66 0-3-1.34-3-3H7c0 2.76 2.24 5 5 5s5-2.24 5-5h-2c0 1.66-1.34 3-3 3z"/></svg>
+      <span class="dock-counter-badge" id="dock-cart-counter">1</span>
+      <span class="dock-tooltip">🛒 Giỏ hàng của bạn</span>
+    </a>
+
+    <!-- 3. Tải App TC SPORT (Hover ra mã QR và quà tặng 50K) -->
+    <div class="dock-action-btn btn-dock-app dock-wiggle-3" tabindex="0" role="button" aria-label="Tải app TC SPORT">
+      <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14zm-5-1c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1z"/></svg>
+      <div class="dock-app-popover">
+        <img src="assets/images/banner-app-qr.jpg" alt="Quét mã tải app TC SPORT">
+        <h5>Tải App TC SPORT</h5>
+        <p>Quét mã nhận ngay Voucher 50K</p>
+        <div class="dock-app-badges">
+          <span>iOS</span>
+          <span>Android</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Hotline tư vấn nhanh -->
+    <a href="tel:0973711868" class="dock-action-btn btn-dock-hotline dock-wiggle-4" aria-label="Gọi hotline tư vấn">
+      <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+      <span class="dock-tooltip">📞 Hotline: 0973.711.868</span>
+    </a>
+
+    <!-- 5. Lên đầu trang -->
+    <button type="button" class="dock-action-btn btn-dock-scrolltop" onclick="window.scrollTo({top:0, behavior:'smooth'})" aria-label="Lên đầu trang">
+      <svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+      <span class="dock-tooltip">⬆️ Lên đầu trang</span>
+    </button>
+  </aside>
+
+  <script src="app.js"></script>
+  <script>
+    // Logic riêng cho trang cart.html
+    function renderCartPage() {
+      const tbody = document.getElementById('cart-page-table-body');
+      if (!tbody) return;
+
+      if (!state.cart || state.cart.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5" style="text-align: center; padding: 40px 0; color: var(--text-muted);">
+              <div style="font-size: 2.5rem; margin-bottom: 10px;">👟</div>
+              <div style="font-size: 1.1rem; font-weight: 800; margin-bottom: 6px;">Giỏ hàng của bạn đang trống!</div>
+              <p style="font-size: 0.85rem; margin-bottom: 16px;">Hãy khám phá các mẫu giày chính hãng mới nhất tại TC SPORT.</p>
+              <a href="category.html" class="btn-primary-checkout" style="display: inline-block; padding: 10px 24px; font-size: 0.88rem;">Khám Phá Sản Phẩm Ngay</a>
+            </td>
+          </tr>
+        `;
+        document.getElementById('cart-page-subtotal').textContent = '0₫';
+        document.getElementById('cart-page-total').textContent = '0₫';
+        document.getElementById('cart-page-count').textContent = '0';
+        return;
+      }
+
+      document.getElementById('cart-page-count').textContent = state.cart.length;
+
+      let subtotal = 0;
+      tbody.innerHTML = state.cart.map((item, index) => {
+        const itemTotal = item.price * item.quantity;
+        subtotal += itemTotal;
+        return `
+          <tr>
+            <td>
+              <div class="cart-item-row">
+                <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                <div>
+                  <div style="font-size: 0.9rem; font-weight: 800; color: var(--text-main);">${item.name}</div>
+                  <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 2px;">
+                    Size đã chọn: <b style="color: var(--color-terracotta);">Size ${item.size}</b>
+                  </div>
+                  <div style="font-size: 0.72rem; color: #10B981; font-weight: 700; margin-top: 2px;">🎁 Tặng kèm 01 đôi tất thể thao dệt kim</div>
+                </div>
+              </div>
+            </td>
+            <td style="text-align: center; font-weight: 700; font-size: 0.9rem;">
+              ${formatVND(item.price)}
+            </td>
+            <td style="text-align: center;">
+              <div class="qty-control-box" style="margin: 0 auto;">
+                <button type="button" class="qty-control-btn" onclick="updateCartItemQty(${index}, -1)">-</button>
+                <input type="text" class="qty-control-input" value="${item.quantity}" readonly>
+                <button type="button" class="qty-control-btn" onclick="updateCartItemQty(${index}, 1)">+</button>
+              </div>
+            </td>
+            <td style="text-align: right; font-weight: 900; font-size: 0.95rem; color: var(--color-terracotta);">
+              ${formatVND(itemTotal)}
+            </td>
+            <td style="text-align: center;">
+              <button type="button" onclick="removeCartItem(${index})" style="color: #9CA3AF; font-size: 1.1rem; padding: 4px;" title="Xoá sản phẩm">✕</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      const discount = 50000;
+      const finalTotal = Math.max(0, subtotal - discount);
+
+      document.getElementById('cart-page-subtotal').textContent = formatVND(subtotal);
+      document.getElementById('cart-page-total').textContent = formatVND(finalTotal);
+    }
+
+    function updateCartItemQty(index, delta) {
+      if (!state.cart[index]) return;
+      state.cart[index].quantity += delta;
+      if (state.cart[index].quantity <= 0) {
+        state.cart.splice(index, 1);
+      }
+      saveCartToStorage();
+      renderCartPage();
+      updateCartBadge();
+    }
+
+    function removeCartItem(index) {
+      state.cart.splice(index, 1);
+      saveCartToStorage();
+      renderCartPage();
+      updateCartBadge();
+      showToast('Đã xoá sản phẩm khỏi giỏ hàng', 'info');
+    }
+
+    function clearFullCart() {
+      if (confirm('Bạn có chắc chắn muốn xoá toàn bộ giỏ hàng?')) {
+        state.cart = [];
+        saveCartToStorage();
+        renderCartPage();
+        updateCartBadge();
+        showToast('Giỏ hàng đã được làm trống', 'info');
+      }
+    }
+
+    function applyCartPageVoucher() {
+      const code = document.getElementById('cart-page-voucher').value.trim().toUpperCase();
+      if (code === 'TC50K') {
+        showToast('Áp dụng thành công mã TC50K giảm 50.000₫!', 'success');
+      } else if (code === 'FREESHIP') {
+        showToast('Áp dụng mã FREESHIP toàn quốc thành công!', 'success');
+      } else {
+        showToast('Mã voucher không hợp lệ hoặc đã hết hạn!', 'info');
+      }
+    }
+
+    function submitCartOrder(e) {
+      e.preventDefault();
+      if (!state.cart || state.cart.length === 0) {
+        showToast('Giỏ hàng trống! Vui lòng chọn sản phẩm trước khi đặt.', 'error');
+        return;
+      }
+      const name = document.getElementById('order-user-name').value;
+      const phone = document.getElementById('order-user-phone').value;
+      const address = document.getElementById('order-user-address').value;
+
+      // Lưu đơn hàng vào localStorage để profile.html đọc
+      const newOrder = {
+        id: 'TC' + Math.floor(10000 + Math.random() * 90000),
+        date: new Date().toLocaleDateString('vi-VN'),
+        name: name,
+        phone: phone,
+        address: address,
+        items: [...state.cart],
+        status: 'Đang xử lý & đóng gói',
+        total: document.getElementById('cart-page-total').textContent
+      };
+
+      try {
+        const existingOrders = JSON.parse(localStorage.getItem('tc_user_orders') || '[]');
+        existingOrders.unshift(newOrder);
+        localStorage.setItem('tc_user_orders', JSON.stringify(existingOrders));
+      } catch (err) {}
+
+      // Xoá giỏ
+      state.cart = [];
+      saveCartToStorage();
+      updateCartBadge();
+
+      alert(`🎉 ĐẶT HÀNG THÀNH CÔNG!\n\nMã đơn hàng: #${newOrder.id}\nNgười nhận: ${name} (${phone})\nĐịa chỉ: ${address}\n\nTC SPORT sẽ liên hệ giao hàng trong 1-2 ngày làm việc.`);
+      window.location.href = 'profile.html?ordered=true';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCartPage();
+    });
+  </script>
+</body>
+</html>

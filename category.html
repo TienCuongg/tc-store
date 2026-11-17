@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, shrink-to-fit=no">
+  <title>Danh Mục Giày Thể Thao Chính Hãng - TC SPORT.vn</title>
+  <meta name="description" content="Danh mục giày thể thao chính hãng Nike, Adidas, Asics, Lacoste, Puma, Pickleball. Đa dạng mẫu mã, bảo hành 12 tháng, đổi hàng 30 ngày.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23C2410C'><polygon points='13 2 3 14 12 14 11 22 21 10 12 10 13 2'/></svg>">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .catalog-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 26px;
+    }
+    .filter-sidebar {
+      background: #FFFFFF;
+      border: 1px solid var(--bg-cream-border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      height: fit-content;
+      box-shadow: 0 4px 14px rgba(70, 50, 25, 0.05);
+    }
+    .filter-group-title {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      border-bottom: 2px solid #F3EDE3;
+      padding-bottom: 6px;
+    }
+    .filter-options-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .filter-option-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .filter-option-item:hover {
+      color: var(--color-terracotta);
+    }
+    .size-filter-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+    .size-filter-btn {
+      padding: 6px 0;
+      text-align: center;
+      border: 1px solid var(--bg-cream-border);
+      background: #FAF5EA;
+      border-radius: var(--radius-xs);
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .size-filter-btn:hover, .size-filter-btn.active {
+      background: var(--color-terracotta);
+      color: #FFFFFF;
+      border-color: var(--color-terracotta);
+    }
+    .catalog-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      background: #FFFFFF;
+      padding: 12px 18px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--bg-cream-border);
+    }
+    @media (max-width: 900px) {
+      .catalog-layout {
+        grid-template-columns: 1fr;
+      }
+      .filter-sidebar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body class="theme-warm-beige">
+
+  <!-- =========================================================================
+       1. HEADER CHUNG ĐỒNG BỘ
+       ========================================================================= -->
+  <header class="site-header" id="site-header">
+    <div class="top-announcement-bar">
+      <div class="container top-bar-row">
+        <div class="top-bar-left">
+          <span>🛡️ Cam kết 100% Chính Hãng (Đền gấp 10 lần)</span>
+          <span class="sep">•</span>
+          <span>📞 Hotline: <b>0973.711.868</b> (8:30 - 21:30)</span>
+        </div>
+        <div class="top-bar-right">
+          <!-- 5 Header Colors Theme Picker -->
+          <div id="theme-picker-wrap" style="position: relative; display: inline-block;">
+            <button type="button" class="theme-toggle-btn" onclick="toggleThemePicker(event)" title="Chọn màu sắc Header">
+              🎨 <span id="theme-toggle-label">Màu: Be Vàng</span> ▾
+            </button>
+            <div class="theme-picker-popover" id="theme-picker-popover">
+              <div class="theme-pick-item" onclick="setHeaderTheme('theme-beige')">
+                <span class="theme-color-dot" style="background: #F3EADB;"></span> Be Vàng Sáng (Mặc định)
+              </div>
+              <div class="theme-pick-item" onclick="setHeaderTheme('theme-navy')">
+                <span class="theme-color-dot" style="background: #0A437F;"></span> Xanh Navy MyShoes
+              </div>
+              <div class="theme-pick-item" onclick="setHeaderTheme('theme-espresso')">
+                <span class="theme-color-dot" style="background: #1F1916;"></span> Nâu Espresso Sang Trọng
+              </div>
+              <div class="theme-pick-item" onclick="setHeaderTheme('theme-emerald')">
+                <span class="theme-color-dot" style="background: #182B1C;"></span> Xanh Rêu Forest
+              </div>
+              <div class="theme-pick-item" onclick="setHeaderTheme('theme-burgundy')">
+                <span class="theme-color-dot" style="background: #38121E;"></span> Đỏ Rượu Burgundy
+              </div>
+            </div>
+          </div>
+          <span class="sep">•</span>
+          <a href="javascript:void(0)" onclick="openSizeGuideModal()">Bảng đo size chuẩn</a>
+          <span class="sep">•</span>
+          <a href="javascript:void(0)" onclick="showToast('Hỗ trợ đổi hàng 30 ngày hoàn toàn miễn phí', 'info')">Đổi hàng 30 ngày</a>
+          <span class="sep">•</span>
+          <a href="javascript:void(0)" onclick="showToast('Bảo hành keo chỉ chính hãng 12 tháng', 'info')">Bảo hành 12 tháng</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-header-strip">
+      <div class="container main-header-row">
+        <a href="index.html" class="brand-logo" aria-label="TC SPORT Trang chủ">
+          <div class="logo-text-title">tc<span>sport</span></div>
+          <div class="logo-sub-tag">Giày chính hãng!<span class="dot-badge">vn</span></div>
+        </a>
+
+        <div class="header-search-box">
+          <div class="search-input-wrap">
+            <input type="text" id="search-input-main" class="search-input-control" placeholder="Tìm giày thể thao..." onkeyup="filterCatalogProducts()">
+            <button type="button" class="btn-search-round" onclick="filterCatalogProducts()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="header-actions-right">
+          <div class="header-action-btn" onclick="handleAccountClick()" title="Tài khoản cá nhân" role="button" tabindex="0">
+            <div class="action-circle-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </div>
+            <div class="action-caption md-visible">
+              <span class="caption-primary">Tài khoản</span>
+              <span class="caption-secondary">Đăng nhập</span>
+            </div>
+          </div>
+
+          <a href="cart.html" class="header-action-btn cart-btn-action" title="Xem giỏ hàng">
+            <div class="action-circle-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+              <span class="cart-pill-badge" id="cart-counter">1</span>
+            </div>
+            <div class="action-caption md-visible">
+              <span class="caption-primary">Giỏ hàng</span>
+              <span class="caption-secondary">Đặt hàng</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Centered Menu Strip -->
+    <nav class="category-menu-strip" aria-label="Danh mục thương hiệu">
+      <div class="container menu-strip-inner">
+        <ul class="nav-brand-links">
+          <!-- Lọc Sản Phẩm (Chuyển trực tiếp đến trang lọc) -->
+          <li>
+            <a href="category.html" class="menu-brand-link" style="color: var(--color-terracotta); font-weight: 800;">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24" style="fill: var(--color-terracotta);"><path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/></svg>
+              <span>Lọc Sản Phẩm</span>
+            </a>
+          </li>
+          <li>
+            <a href="category.html?brand=Nike" class="menu-brand-link">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24"><path d="M21.7 8.3c-2.4 2.8-6.8 6.5-12.8 9.5-3.1 1.5-6.7 2.2-8.9 1.1-1.3-.7-1.4-2.2-.2-3.8 1.4-1.9 4-3.8 7-5.3 5.4-2.6 11.2-3.8 14.9-1.5z"/></svg>
+              <span>Giày Nike</span>
+            </a>
+          </li>
+          <li>
+            <a href="category.html?brand=Adidas" class="menu-brand-link">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24"><polygon points="1.5,19 5.5,19 9.5,12 5.5,12"/><polygon points="8,19 12,19 16,8 12,8"/><polygon points="14.5,19 18.5,19 22.5,4 18.5,4"/></svg>
+              <span>Giày Adidas</span>
+            </a>
+          </li>
+          <li>
+            <a href="category.html?brand=Asics" class="menu-brand-link">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.5c-3 .5-5.5-1.5-5.5-4s2-4.5 4.5-4.5c1.5 0 2.5.5 3 1l-1.5 1.5c-.5-.5-1-.7-1.5-.7-1.5 0-2.5 1-2.5 2.5s1 2.5 2.5 2.5c1 0 1.5-.5 2-1v-.8h-2v-1.8h3.8v3.3c-.8 1.2-2 1.8-3.8 2z"/></svg>
+              <span>Giày Asics</span>
+            </a>
+          </li>
+          <li>
+            <a href="category.html?brand=Lacoste" class="menu-brand-link">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24"><path d="M19 8c-1-1-3-1-4-1-2 0-3 1-5 2-1 0-2 0-3-1-1 0-2 1-2 2s1 2 2 2h1c1 1 2 2 4 2 3 0 5-1 6-2 1-1 2-2 1-4zm-8 2c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z"/></svg>
+              <span>Giày Lacoste</span>
+            </a>
+          </li>
+          <li>
+            <a href="category.html?brand=Puma" class="menu-brand-link">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24"><path d="M19.5 5.5c-.8.6-1.8.8-2.7.7-1.2-.1-2.3-.7-3.2-1.5-.5-.4-.9-.9-1.2-1.4-.4-.7-.9-.9-1.6-.6-.7.3-1.1.9-1.3 1.6-.3 1.1-.3 2.2 0 3.3.4 1.3 1.2 2.3 2.3 3.1 1.6 1.2 3.5 1.7 5.5 1.6 1-.1 2-.3 3-.7-.2-.7-.5-1.4-1-2-.6-.8-1.5-1.4-2.5-1.7-.8-.2-1.7-.1-2.5.2-.4.1-.7.2-1 .4.2-.6.5-1.2 1-1.7.7-.7 1.6-1.1 2.6-1.2 1.2-.1 2.4.3 3.4 1 .3-.7.5-1.5.6-2.3 0-.1 0-.3-.1-.4-.3-.3-.8-.3-1.3.1z"/></svg>
+              <span>Giày Puma</span>
+            </a>
+          </li>
+          <li>
+            <a href="category.html?category=pickleball" class="menu-brand-link">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24"><path d="M14.5 2C11.5 2 9 4.5 9 7.5c0 1.2.4 2.3 1.1 3.2L4 16.8c-.8.8-.8 2 0 2.8l.4.4c.8.8 2 .8 2.8 0l6.1-6.1c.9.7 2 1.1 3.2 1.1 3 0 5.5-2.5 5.5-5.5S17.5 2 14.5 2zm-9 16.5l-.3-.3c-.2-.2-.2-.5 0-.7l3.8-3.8.9.9-3.7 3.9c-.2.2-.5.2-.7 0zm9-8c-2 0-3.5-1.5-3.5-3.5S12.5 3.5 14.5 3.5 18 5 18 7s-1.5 3.5-3.5 3.5z"/></svg>
+              <span>Pickleball</span>
+            </a>
+          </li>
+          <li>
+            <a href="category.html?category=running" class="menu-brand-link">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7z"/></svg>
+              <span>Chạy Bộ</span>
+            </a>
+          </li>
+          <li>
+            <a href="category.html?sale=true" class="menu-brand-link" style="color: #DC2626;">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24" style="fill: #DC2626;"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+              <span>Sale Khủng</span>
+            </a>
+          </li>
+          <li>
+            <a href="blog.html" class="menu-brand-link">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+              <span>Bảng Tin TC</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- =========================================================================
+       2. MAIN CONTENT: DANH MỤC SẢN PHẨM & BỘ LỌC
+       ========================================================================= -->
+  <main class="page-wrapper-main">
+    <div class="container">
+      
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb-nav">
+        <a href="index.html">Trang chủ</a>
+        <span>›</span>
+        <span id="breadcrumb-title" style="color: var(--text-main); font-weight: 700;">Tất cả sản phẩm chính hãng</span>
+      </nav>
+
+      <div class="catalog-layout">
+        
+        <!-- Cột trái: Bộ lọc Sidebar -->
+        <aside class="filter-sidebar">
+          
+          <!-- Hãng giày -->
+          <div class="filter-group-title">Thương hiệu</div>
+          <ul class="filter-options-list">
+            <li class="filter-option-item">
+              <input type="radio" name="brand-filter" id="filter-brand-all" value="all" checked onchange="applyFilters()">
+              <label for="filter-brand-all">Tất cả thương hiệu</label>
+            </li>
+            <li class="filter-option-item">
+              <input type="radio" name="brand-filter" id="filter-nike" value="Nike" onchange="applyFilters()">
+              <label for="filter-nike">Nike (Pegasus, Metcon, Infinity)</label>
+            </li>
+            <li class="filter-option-item">
+              <input type="radio" name="brand-filter" id="filter-adidas" value="Adidas" onchange="applyFilters()">
+              <label for="filter-adidas">Adidas (Samba, Ultraboost, Adios)</label>
+            </li>
+            <li class="filter-option-item">
+              <input type="radio" name="brand-filter" id="filter-asics" value="Asics" onchange="applyFilters()">
+              <label for="filter-asics">Asics (Nimbus, Novablast, Speed)</label>
+            </li>
+            <li class="filter-option-item">
+              <input type="radio" name="brand-filter" id="filter-lacoste" value="Lacoste" onchange="applyFilters()">
+              <label for="filter-lacoste">Lacoste (Carnaby, T-Clip, Lineshot)</label>
+            </li>
+            <li class="filter-option-item">
+              <input type="radio" name="brand-filter" id="filter-puma" value="Puma" onchange="applyFilters()">
+              <label for="filter-puma">Puma (Deviate Nitro, Suede, Rider)</label>
+            </li>
+            <li class="filter-option-item">
+              <input type="radio" name="brand-filter" id="filter-jordan" value="Jordan" onchange="applyFilters()">
+              <label for="filter-jordan">Jordan (Retro High, Low, Luka 2)</label>
+            </li>
+            <li class="filter-option-item">
+              <input type="radio" name="brand-filter" id="filter-tcsport" value="TC Sport" onchange="applyFilters()">
+              <label for="filter-tcsport">TC Sport Chính Hãng</label>
+            </li>
+          </ul>
+
+          <!-- Phân loại bộ môn -->
+          <div class="filter-group-title" style="margin-top: 18px;">Bộ môn / Thể thao</div>
+          <ul class="filter-options-list">
+            <li class="filter-option-item">
+              <input type="radio" name="category-filter" id="cat-all" value="all" checked onchange="applyFilters()">
+              <label for="cat-all">Tất cả bộ môn</label>
+            </li>
+            <li class="filter-option-item">
+              <input type="radio" name="category-filter" id="cat-running" value="running" onchange="applyFilters()">
+              <label for="cat-running">Chạy bộ (Running)</label>
+            </li>
+            <li class="filter-option-item">
+              <input type="radio" name="category-filter" id="cat-pickleball" value="pickleball" onchange="applyFilters()">
+              <label for="cat-pickleball">Pickleball & Tennis</label>
+            </li>
+            <li class="filter-option-item">
+              <input type="radio" name="category-filter" id="cat-training" value="training" onchange="applyFilters()">
+              <label for="cat-training">Tập Gym & Crossfit</label>
+            </li>
+            <li class="filter-option-item">
+              <input type="radio" name="category-filter" id="cat-basketball" value="basketball" onchange="applyFilters()">
+              <label for="cat-basketball">Bóng rổ (Basketball)</label>
+            </li>
+            <li class="filter-option-item">
+              <input type="radio" name="category-filter" id="cat-lifestyle" value="lifestyle" onchange="applyFilters()">
+              <label for="cat-lifestyle">Thời trang Lifestyle</label>
+            </li>
+          </ul>
+
+          <!-- Kích thước (Không có chữ EU) -->
+          <div class="filter-group-title" style="margin-top: 18px;">Kích thước (Size)</div>
+          <div class="size-filter-grid">
+            <button type="button" class="size-filter-btn" onclick="toggleSizeFilter(36, this)">36</button>
+            <button type="button" class="size-filter-btn" onclick="toggleSizeFilter(37, this)">37</button>
+            <button type="button" class="size-filter-btn" onclick="toggleSizeFilter(38, this)">38</button>
+            <button type="button" class="size-filter-btn" onclick="toggleSizeFilter(39, this)">39</button>
+            <button type="button" class="size-filter-btn" onclick="toggleSizeFilter(40, this)">40</button>
+            <button type="button" class="size-filter-btn" onclick="toggleSizeFilter(41, this)">41</button>
+            <button type="button" class="size-filter-btn" onclick="toggleSizeFilter(42, this)">42</button>
+            <button type="button" class="size-filter-btn" onclick="toggleSizeFilter(43, this)">43</button>
+            <button type="button" class="size-filter-btn" onclick="toggleSizeFilter(44, this)">44</button>
+          </div>
+
+          <!-- Mức giá -->
+          <div class="filter-group-title" style="margin-top: 18px;">Khoảng giá</div>
+          <ul class="filter-options-list">
+            <li class="filter-option-item">
+              <input type="radio" name="price-filter" id="price-all" value="all" checked onchange="applyFilters()">
+              <label for="price-all">Tất cả mức giá</label>
+            </li>
+            <li class="filter-option-item">
+              <input type="radio" name="price-filter" id="price-under-2m" value="under2" onchange="applyFilters()">
+              <label for="price-under-2m">Dưới 2.000.000₫</label>
+            </li>
+            <li class="filter-option-item">
+              <input type="radio" name="price-filter" id="price-2-3m" value="2to3" onchange="applyFilters()">
+              <label for="price-2-3m">2.000.000₫ - 3.000.000₫</label>
+            </li>
+            <li class="filter-option-item">
+              <input type="radio" name="price-filter" id="price-over-3m" value="over3" onchange="applyFilters()">
+              <label for="price-over-3m">Trên 3.000.000₫</label>
+            </li>
+          </ul>
+
+          <button type="button" class="btn-calc-submit" style="width: 100%; padding: 10px; margin-top: 16px; font-weight: 700;" onclick="resetFilters()">
+            Đặt Lại Bộ Lọc
+          </button>
+        </aside>
+
+        <!-- Cột phải: Grid sản phẩm -->
+        <div>
+          <div class="catalog-top-bar">
+            <div>
+              <b id="catalog-count-label" style="font-size: 0.95rem;">Đang hiển thị 10 sản phẩm</b>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 0.84rem; color: var(--text-muted);">Sắp xếp:</span>
+              <select id="sort-select" onchange="applyFilters()" style="padding: 4px 10px; border: 1px solid var(--bg-cream-border); border-radius: var(--radius-xs); font-size: 0.84rem; background: #FFF;">
+                <option value="popular">Bán chạy nhất</option>
+                <option value="price-asc">Giá thấp đến cao</option>
+                <option value="price-desc">Giá cao đến thấp</option>
+                <option value="newest">Hàng mới về</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Product Grid 5 / 4 Columns -->
+          <div class="grid-5-columns" id="catalog-products-grid">
+            <!-- Rendered via JavaScript -->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- QUICK VIEW MODAL (Chi tiết chọn size) -->
+  <div class="modal-backdrop" id="quickview-modal" onclick="closeQuickViewModal()">
+    <div class="modal-dialog quickview-dialog" onclick="event.stopPropagation()">
+      <div class="modal-dialog-header">
+        <h3>CHI TIẾT SẢN PHẨM</h3>
+        <button type="button" class="btn-close-modal" onclick="closeQuickViewModal()">✕</button>
+      </div>
+      <div class="modal-dialog-body" id="quickview-modal-content"></div>
+    </div>
+  </div>
+
+  <!-- SIZE GUIDE MODAL (Không có EU) -->
+  <div class="modal-backdrop" id="size-guide-modal" onclick="closeSizeGuideModal()">
+    <div class="modal-dialog sizeguide-dialog" onclick="event.stopPropagation()">
+      <div class="modal-dialog-header">
+        <h3>HƯỚNG DẪN ĐO VÀ CHỌN SIZE GIÀY CHUẨN XÁC</h3>
+        <button type="button" class="btn-close-modal" onclick="closeSizeGuideModal()">✕</button>
+      </div>
+      <div class="modal-dialog-body">
+        <div class="size-calc-card">
+          <div class="calc-label">Nhập chiều dài bàn chân của bạn (cm):</div>
+          <div class="calc-input-row">
+            <input type="number" id="foot-cm-input" class="calc-input" placeholder="VD: 25.5" step="0.1">
+            <button type="button" class="btn-calc-submit" onclick="computeShoeSize()">Tính Size Ngay</button>
+          </div>
+          <div class="calc-result-box" id="calc-result-display">
+            Vui lòng nhập chiều dài bàn chân để nhận tư vấn size chuẩn xác cho tất cả dòng giày thể thao Nike, Adidas, Asics, Lacoste, Puma.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Wrapper -->
+  <div class="toast-wrapper" id="toast-wrapper"></div>
+
+  <!-- =========================================================================
+       3. FOOTER ĐỒNG BỘ
+       ========================================================================= -->
+  <footer class="site-footer-full">
+    <div class="container">
+      <div class="footer-top-columns">
+        <div>
+          <div class="footer-brand-title">TC SPORT<span>.vn</span></div>
+          <div class="footer-tagline">Giày chính hãng! • VN</div>
+          <p class="footer-about-text">
+            TC SPORT là nền tảng mua sắm giày chính hãng hàng đầu Việt Nam với hơn 100.000 khách hàng đã tin tưởng và lựa chọn.
+          </p>
+        </div>
+        <div>
+          <h4 class="footer-heading">CHÍNH SÁCH</h4>
+          <ul class="footer-links-list">
+            <li><a href="cart.html">Thanh toán & giao hàng</a></li>
+            <li><a href="javascript:void(0)" onclick="openSizeGuideModal()">Bảng đo kích cỡ giày</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">VỀ TC SPORT</h4>
+          <ul class="footer-links-list">
+            <li><a href="blog.html">Tin tức & Bảng tin TC Feed</a></li>
+            <li><a href="profile.html">Hồ sơ tài khoản</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">TỔNG ĐÀI HỖ TRỢ</h4>
+          <div class="footer-hotline-card">
+            <div class="hotline-row">
+              <span>Mua hàng:</span>
+              <b><a href="tel:0973711868" style="color: #F87171;">📞 0973711868</a></b>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-middle-divider"></div>
+
+      <div class="footer-bottom-columns">
+        <div>
+          <div class="company-legal-title">CÔNG TY CỔ PHẦN ĐẦU TƯ VÀ CÔNG NGHỆ TCGROUP</div>
+          <div>Địa chỉ: 249 Xã Đàn, Phường Đống Đa, Hà Nội.</div>
+          <div>© 2016 - 2026 TCSPORT.vn. All rights reserved.</div>
+        </div>
+        <div>
+          <div style="font-size: 0.8rem; font-weight: 800; color: #E5E7EB; text-transform: uppercase;">CÙNG HỆ SINH THÁI TCGROUP</div>
+          <div style="font-size: 0.75rem; color: #9CA3AF; margin-top: 4px;">TCWork • TCStyle.vn</div>
+        </div>
+        <div class="trust-badges-wrap">
+          <div class="badge-gov-declared">
+            <span>ĐÃ THÔNG BÁO BỘ CÔNG THƯƠNG</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- AUTH MODAL (ĐĂNG NHẬP / ĐĂNG KÝ / ĐĂNG NHẬP GOOGLE) -->
+  <div class="modal-backdrop" id="auth-modal" onclick="closeAuthModal()">
+    <div class="modal-dialog auth-dialog" onclick="event.stopPropagation()">
+      
+      <!-- Close Button (Absolute positioned for pure symmetry) -->
+      <button type="button" class="btn-close-modal auth-close-btn" onclick="closeAuthModal()" title="Đóng cửa sổ">✕</button>
+
+      <!-- 2 Tabs Switcher (Exactly 50% / 50% Symmetrical) -->
+      <div class="auth-tabs-header">
+        <button type="button" class="auth-tab-btn active" id="btn-tab-login" onclick="switchAuthTab('login')">
+          ĐĂNG NHẬP
+        </button>
+        <button type="button" class="auth-tab-btn" id="btn-tab-register" onclick="switchAuthTab('register')">
+          ĐĂNG KÝ MỚI
+        </button>
+      </div>
+
+      <div class="modal-dialog-body">
+        <button type="button" class="btn-google-login" onclick="handleGoogleLogin()">
+          <svg class="google-icon-svg" width="20" height="20" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          <span>Đăng nhập nhanh với Google</span>
+        </button>
+
+        <div class="auth-social-divider">
+          <span>HOẶC SỬ DỤNG EMAIL / SĐT</span>
+        </div>
+
+        <form id="auth-tab-login-form" onsubmit="handleAuthLogin(event)">
+          <div class="form-group">
+            <label class="form-label">Email hoặc Số điện thoại *</label>
+            <input type="text" id="auth-login-identity" class="form-control" required placeholder="Nhập email hoặc SĐT..." value="khachhang@tcsport.vn">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mật khẩu *</label>
+            <input type="password" id="auth-login-password" class="form-control" required placeholder="Nhập mật khẩu..." value="123456">
+          </div>
+          <div class="auth-footer-help">
+            <label style="display: flex; align-items: center; gap: 7px; cursor: pointer; font-size: 0.85rem; color: var(--text-muted);">
+              <input type="checkbox" checked style="accent-color: var(--color-terracotta); width: 16px; height: 16px;"> Ghi nhớ đăng nhập
+            </label>
+            <a href="javascript:void(0)" onclick="showToast('Vui lòng liên hệ hotline 0973.711.868 để lấy lại mật khẩu nhanh!', 'info')" style="color: var(--color-terracotta); font-weight: 700; text-decoration: none;">Quên mật khẩu?</a>
+          </div>
+          <button type="submit" class="auth-submit-btn">
+            ĐĂNG NHẬP NGAY
+          </button>
+        </form>
+
+        <form id="auth-tab-register-form" onsubmit="handleAuthRegister(event)" style="display: none;">
+          <div class="form-group">
+            <label class="form-label">Họ và tên của bạn *</label>
+            <input type="text" id="auth-reg-name" class="form-control" required placeholder="VD: Nguyễn Văn An">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Số điện thoại *</label>
+            <input type="tel" id="auth-reg-phone" class="form-control" required placeholder="VD: 0912345678">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Địa chỉ Email *</label>
+            <input type="email" id="auth-reg-email" class="form-control" required placeholder="VD: yourname@gmail.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mật khẩu mới *</label>
+            <input type="password" id="auth-reg-password" class="form-control" required placeholder="Tối thiểu 6 ký tự..." minlength="6" value="123456">
+          </div>
+          <button type="submit" class="auth-submit-btn" style="background: var(--color-terracotta);">
+            TẠO TÀI KHOẢN MỚI
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING VERTICAL DOCK (Right side beige space with dynamic wiggle animation) -->
+  <aside class="floating-vertical-dock" aria-label="Thanh công cụ nhanh">
+    <!-- 1. Tìm kiếm chọn lọc -->
+    <a href="category.html" class="dock-action-btn btn-dock-filter dock-wiggle-1" aria-label="Tìm kiếm chọn lọc">
+      <svg viewBox="0 0 24 24"><path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/></svg>
+      <span class="dock-tooltip">🔍 Tìm kiếm chọn lọc</span>
+    </a>
+
+    <!-- 2. Giỏ hàng nhanh -->
+    <button type="button" class="dock-action-btn btn-dock-cart dock-wiggle-2" onclick="window.location.href='cart.html'" aria-label="Xem giỏ hàng">
+      <svg viewBox="0 0 24 24"><path d="M19 6h-2c0-2.76-2.24-5-5-5S7 3.24 7 6H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-7-3c1.66 0 3 1.34 3 3H9c0-1.66 1.34-3 3-3zm7 17H5V8h14v12zm-7-8c-1.66 0-3-1.34-3-3H7c0 2.76 2.24 5 5 5s5-2.24 5-5h-2c0 1.66-1.34 3-3 3z"/></svg>
+      <span class="dock-counter-badge" id="dock-cart-counter">1</span>
+      <span class="dock-tooltip">🛒 Giỏ hàng của bạn</span>
+    </button>
+
+    <!-- 3. Tải App TC SPORT (Hover ra mã QR và quà tặng 50K) -->
+    <div class="dock-action-btn btn-dock-app dock-wiggle-3" tabindex="0" role="button" aria-label="Tải app TC SPORT">
+      <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14zm-5-1c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1z"/></svg>
+      <div class="dock-app-popover">
+        <img src="assets/images/banner-app-qr.jpg" alt="Quét mã tải app TC SPORT">
+        <h5>Tải App TC SPORT</h5>
+        <p>Quét mã nhận ngay Voucher 50K</p>
+        <div class="dock-app-badges">
+          <span>iOS</span>
+          <span>Android</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Hotline tư vấn nhanh -->
+    <a href="tel:0973711868" class="dock-action-btn btn-dock-hotline dock-wiggle-4" aria-label="Gọi hotline tư vấn">
+      <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+      <span class="dock-tooltip">📞 Hotline: 0973.711.868</span>
+    </a>
+
+    <!-- 5. Lên đầu trang -->
+    <button type="button" class="dock-action-btn btn-dock-scrolltop" onclick="window.scrollTo({top:0, behavior:'smooth'})" aria-label="Lên đầu trang">
+      <svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+      <span class="dock-tooltip">⬆️ Lên đầu trang</span>
+    </button>
+  </aside>
+
+  <script src="app.js"></script>
+  <script>
+    let activeSizeFilter = null;
+
+    function toggleSizeFilter(size, btn) {
+      document.querySelectorAll('.size-filter-btn').forEach(b => b.classList.remove('active'));
+      if (activeSizeFilter === size) {
+        activeSizeFilter = null;
+      } else {
+        activeSizeFilter = size;
+        btn.classList.add('active');
+      }
+      applyFilters();
+    }
+
+    function resetFilters() {
+      const brandAll = document.getElementById('filter-brand-all');
+      if (brandAll) brandAll.checked = true;
+      const catAll = document.getElementById('cat-all');
+      if (catAll) catAll.checked = true;
+      const priceAll = document.getElementById('price-all');
+      if (priceAll) priceAll.checked = true;
+
+      activeSizeFilter = null;
+      document.querySelectorAll('.size-filter-btn').forEach(b => b.classList.remove('active'));
+      const searchInput = document.getElementById('search-input-main');
+      if (searchInput) searchInput.value = '';
+
+      const breadcrumb = document.getElementById('breadcrumb-title');
+      if (breadcrumb) breadcrumb.textContent = 'Tất cả sản phẩm chính hãng';
+
+      applyFilters();
+    }
+
+    function applyFilters() {
+      const container = document.getElementById('catalog-products-grid');
+      if (!container) return;
+
+      const dataList = (typeof ALL_PRODUCTS !== 'undefined' ? ALL_PRODUCTS : (window.ALL_PRODUCTS || []));
+      let filtered = [...dataList];
+
+      const selectedBrand = document.querySelector('input[name="brand-filter"]:checked')?.value || 'all';
+      const selectedCat = document.querySelector('input[name="category-filter"]:checked')?.value || 'all';
+      const selectedPrice = document.querySelector('input[name="price-filter"]:checked')?.value || 'all';
+      const searchKeyword = (document.getElementById('search-input-main')?.value || '').toLowerCase().trim();
+      const sortVal = document.getElementById('sort-select')?.value || 'popular';
+
+      // 1. Filter by Brand
+      if (selectedBrand !== 'all') {
+        filtered = filtered.filter(p => p.brand.toLowerCase() === selectedBrand.toLowerCase());
+      }
+
+      // 2. Filter by Category
+      if (selectedCat !== 'all') {
+        filtered = filtered.filter(p => (p.category || '').toLowerCase() === selectedCat.toLowerCase());
+      }
+
+      // 3. Filter by Size
+      if (activeSizeFilter) {
+        filtered = filtered.filter(p => p.sizes && p.sizes.includes(Number(activeSizeFilter)));
+      }
+
+      // 4. Filter by Search Keyword
+      if (searchKeyword) {
+        filtered = filtered.filter(p => 
+          p.name.toLowerCase().includes(searchKeyword) || 
+          p.brand.toLowerCase().includes(searchKeyword) ||
+          (p.category && p.category.toLowerCase().includes(searchKeyword))
+        );
+      }
+
+      // 5. Filter by Price
+      if (selectedPrice === 'under2') {
+        filtered = filtered.filter(p => p.price < 2000000);
+      } else if (selectedPrice === '2to3') {
+        filtered = filtered.filter(p => p.price >= 2000000 && p.price <= 3000000);
+      } else if (selectedPrice === 'over3') {
+        filtered = filtered.filter(p => p.price > 3000000);
+      }
+
+      // 6. Sort
+      if (sortVal === 'price-asc') {
+        filtered.sort((a, b) => a.price - b.price);
+      } else if (sortVal === 'price-desc') {
+        filtered.sort((a, b) => b.price - a.price);
+      } else if (sortVal === 'newest') {
+        filtered.sort((a, b) => b.id - a.id);
+      } else {
+        // popular
+        filtered.sort((a, b) => (b.soldCount || 0) - (a.soldCount || 0));
+      }
+
+      const countLabel = document.getElementById('catalog-count-label');
+      if (countLabel) {
+        countLabel.textContent = `Đang hiển thị ${filtered.length} sản phẩm`;
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: #FFFFFF; border-radius: var(--radius-md); border: 1px dashed var(--bg-cream-border);">
+            <div style="font-size: 3rem; margin-bottom: 12px;">👟</div>
+            <div style="font-weight: 800; font-size: 1.15rem; color: var(--color-espresso);">Không tìm thấy sản phẩm phù hợp</div>
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin: 8px 0 20px;">Vui lòng thử điều chỉnh lại bộ lọc kích cỡ, thương hiệu hoặc mức giá.</p>
+            <button type="button" class="btn-calc-submit" style="padding: 10px 24px; font-size: 0.85rem;" onclick="resetFilters()">Xem tất cả sản phẩm</button>
+          </div>
+        `;
+        return;
+      }
+
+      const cardRenderer = typeof renderCardHTML === 'function' ? renderCardHTML : (window.renderCardHTML || window.renderProductCardHTML);
+      if (cardRenderer) {
+        container.innerHTML = filtered.map(p => cardRenderer(p)).join('');
+      }
+    }
+
+    function filterCatalogProducts() {
+      applyFilters();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const brandParam = params.get('brand');
+      const catParam = params.get('category');
+      const saleParam = params.get('sale');
+
+      if (brandParam) {
+        const radio = document.querySelector(`input[name="brand-filter"][value="${brandParam}"]`);
+        if (radio) {
+          radio.checked = true;
+          document.getElementById('breadcrumb-title').textContent = `Giày thể thao ${brandParam} chính hãng`;
+        }
+      }
+      if (catParam) {
+        const catRadio = document.querySelector(`input[name="category-filter"][value="${catParam}"]`);
+        if (catRadio) {
+          catRadio.checked = true;
+          document.getElementById('breadcrumb-title').textContent = `Giày thể thao bộ môn: ${catParam.toUpperCase()}`;
+        }
+      }
+      if (saleParam === 'true') {
+        document.getElementById('breadcrumb-title').textContent = `Chương trình Siêu Sale Giày Chính Hãng`;
+      }
+
+      applyFilters();
+    });
+  </script>
+</body>
+</html>

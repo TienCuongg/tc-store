@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, shrink-to-fit=no">
+  <title>Tài Khoản Cá Nhân & Đơn Hàng - TC SPORT.vn</title>
+  <meta name="description" content="Quản lý hồ sơ tài khoản, lịch sử đơn hàng, địa chỉ giao hàng và mã ưu đãi tại TC SPORT.vn.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23C2410C'><polygon points='13 2 3 14 12 14 11 22 21 10 12 10 13 2'/></svg>">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-warm-beige">
+
+  <!-- =========================================================================
+       1. HEADER CHUNG ĐỒNG BỘ
+       ========================================================================= -->
+  <header class="site-header" id="site-header">
+    <div class="top-announcement-bar">
+      <div class="container top-bar-row">
+        <div class="top-bar-left">
+          <span>🛡️ Cam kết 100% Chính Hãng (Đền gấp 10 lần)</span>
+          <span class="sep">•</span>
+          <span>📞 Hotline: <b>0973.711.868</b> (8:30 - 21:30)</span>
+        </div>
+        <div class="top-bar-right">
+          <!-- 5 Header Colors Theme Picker -->
+          <div id="theme-picker-wrap" style="position: relative; display: inline-block;">
+            <button type="button" class="theme-toggle-btn" onclick="toggleThemePicker(event)" title="Chọn màu sắc Header">
+              🎨 <span id="theme-toggle-label">Màu: Be Vàng</span> ▾
+            </button>
+            <div class="theme-picker-popover" id="theme-picker-popover">
+              <div class="theme-pick-item" onclick="setHeaderTheme('theme-beige')">
+                <span class="theme-color-dot" style="background: #F3EADB;"></span> Be Vàng Sáng (Mặc định)
+              </div>
+              <div class="theme-pick-item" onclick="setHeaderTheme('theme-navy')">
+                <span class="theme-color-dot" style="background: #0A437F;"></span> Xanh Navy MyShoes
+              </div>
+              <div class="theme-pick-item" onclick="setHeaderTheme('theme-espresso')">
+                <span class="theme-color-dot" style="background: #1F1916;"></span> Nâu Espresso Sang Trọng
+              </div>
+              <div class="theme-pick-item" onclick="setHeaderTheme('theme-emerald')">
+                <span class="theme-color-dot" style="background: #182B1C;"></span> Xanh Rêu Forest
+              </div>
+              <div class="theme-pick-item" onclick="setHeaderTheme('theme-burgundy')">
+                <span class="theme-color-dot" style="background: #38121E;"></span> Đỏ Rượu Burgundy
+              </div>
+            </div>
+          </div>
+          <span class="sep">•</span>
+          <a href="javascript:void(0)" onclick="openSizeGuideModal()">Bảng đo size chuẩn</a>
+          <span class="sep">•</span>
+          <a href="javascript:void(0)" onclick="showToast('Hỗ trợ đổi hàng 30 ngày hoàn toàn miễn phí', 'info')">Đổi hàng 30 ngày</a>
+          <span class="sep">•</span>
+          <a href="javascript:void(0)" onclick="showToast('Bảo hành keo chỉ chính hãng 12 tháng', 'info')">Bảo hành 12 tháng</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-header-strip">
+      <div class="container main-header-row">
+        <a href="index.html" class="brand-logo" aria-label="TC SPORT Trang chủ">
+          <div class="logo-text-title">tc<span>sport</span></div>
+          <div class="logo-sub-tag">Giày chính hãng!<span class="dot-badge">vn</span></div>
+        </a>
+
+        <div class="header-search-box">
+          <div class="search-input-wrap">
+            <input type="text" id="search-input-main" class="search-input-control" placeholder="Tìm kiếm giày thể thao Nike, Adidas, Asics..." autocomplete="off">
+            <button type="button" class="btn-search-round" onclick="window.location.href='category.html'">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="header-actions-right">
+          <a href="profile.html" class="header-action-btn" title="Trang tài khoản cá nhân" style="border-color: var(--color-terracotta);">
+            <div class="action-circle-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </div>
+            <div class="action-caption md-visible">
+              <span class="caption-primary">Tài khoản</span>
+              <span class="caption-secondary">Trần Quốc Tiến</span>
+            </div>
+          </a>
+
+          <a href="cart.html" class="header-action-btn cart-btn-action" title="Xem giỏ hàng">
+            <div class="action-circle-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+              <span class="cart-pill-badge" id="cart-counter">1</span>
+            </div>
+            <div class="action-caption md-visible">
+              <span class="caption-primary">Giỏ hàng</span>
+              <span class="caption-secondary">Đặt hàng</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Centered Menu Strip -->
+    <nav class="category-menu-strip" aria-label="Danh mục thương hiệu">
+      <div class="container menu-strip-inner">
+        <ul class="nav-brand-links">
+          <!-- Lọc Sản Phẩm (Chuyển trực tiếp đến trang lọc) -->
+          <li>
+            <a href="category.html" class="menu-brand-link" style="color: var(--color-terracotta); font-weight: 800;">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24" style="fill: var(--color-terracotta);"><path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/></svg>
+              <span>Lọc Sản Phẩm</span>
+            </a>
+          </li>
+          <li>
+            <a href="category.html?brand=Nike" class="menu-brand-link">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24"><path d="M21.7 8.3c-2.4 2.8-6.8 6.5-12.8 9.5-3.1 1.5-6.7 2.2-8.9 1.1-1.3-.7-1.4-2.2-.2-3.8 1.4-1.9 4-3.8 7-5.3 5.4-2.6 11.2-3.8 14.9-1.5z"/></svg>
+              <span>Giày Nike</span>
+            </a>
+          </li>
+          <li>
+            <a href="category.html?brand=Adidas" class="menu-brand-link">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24"><polygon points="1.5,19 5.5,19 9.5,12 5.5,12"/><polygon points="8,19 12,19 16,8 12,8"/><polygon points="14.5,19 18.5,19 22.5,4 18.5,4"/></svg>
+              <span>Giày Adidas</span>
+            </a>
+          </li>
+          <li>
+            <a href="category.html?brand=Asics" class="menu-brand-link">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.5c-3 .5-5.5-1.5-5.5-4s2-4.5 4.5-4.5c1.5 0 2.5.5 3 1l-1.5 1.5c-.5-.5-1-.7-1.5-.7-1.5 0-2.5 1-2.5 2.5s1 2.5 2.5 2.5c1 0 1.5-.5 2-1v-.8h-2v-1.8h3.8v3.3c-.8 1.2-2 1.8-3.8 2z"/></svg>
+              <span>Giày Asics</span>
+            </a>
+          </li>
+          <li>
+            <a href="category.html?brand=Lacoste" class="menu-brand-link">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24"><path d="M19 8c-1-1-3-1-4-1-2 0-3 1-5 2-1 0-2 0-3-1-1 0-2 1-2 2s1 2 2 2h1c1 1 2 2 4 2 3 0 5-1 6-2 1-1 2-2 1-4zm-8 2c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z"/></svg>
+              <span>Giày Lacoste</span>
+            </a>
+          </li>
+          <li>
+            <a href="category.html?brand=Puma" class="menu-brand-link">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24"><path d="M19.5 5.5c-.8.6-1.8.8-2.7.7-1.2-.1-2.3-.7-3.2-1.5-.5-.4-.9-.9-1.2-1.4-.4-.7-.9-.9-1.6-.6-.7.3-1.1.9-1.3 1.6-.3 1.1-.3 2.2 0 3.3.4 1.3 1.2 2.3 2.3 3.1 1.6 1.2 3.5 1.7 5.5 1.6 1-.1 2-.3 3-.7-.2-.7-.5-1.4-1-2-.6-.8-1.5-1.4-2.5-1.7-.8-.2-1.7-.1-2.5.2-.4.1-.7.2-1 .4.2-.6.5-1.2 1-1.7.7-.7 1.6-1.1 2.6-1.2 1.2-.1 2.4.3 3.4 1 .3-.7.5-1.5.6-2.3 0-.1 0-.3-.1-.4-.3-.3-.8-.3-1.3.1z"/></svg>
+              <span>Giày Puma</span>
+            </a>
+          </li>
+          <li>
+            <a href="category.html?category=pickleball" class="menu-brand-link">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24"><path d="M14.5 2C11.5 2 9 4.5 9 7.5c0 1.2.4 2.3 1.1 3.2L4 16.8c-.8.8-.8 2 0 2.8l.4.4c.8.8 2 .8 2.8 0l6.1-6.1c.9.7 2 1.1 3.2 1.1 3 0 5.5-2.5 5.5-5.5S17.5 2 14.5 2zm-9 16.5l-.3-.3c-.2-.2-.2-.5 0-.7l3.8-3.8.9.9-3.7 3.9c-.2.2-.5.2-.7 0zm9-8c-2 0-3.5-1.5-3.5-3.5S12.5 3.5 14.5 3.5 18 5 18 7s-1.5 3.5-3.5 3.5z"/></svg>
+              <span>Pickleball</span>
+            </a>
+          </li>
+          <li>
+            <a href="category.html?category=running" class="menu-brand-link">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7z"/></svg>
+              <span>Chạy Bộ</span>
+            </a>
+          </li>
+          <li>
+            <a href="category.html?sale=true" class="menu-brand-link" style="color: #DC2626;">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24" style="fill: #DC2626;"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+              <span>Sale Khủng</span>
+            </a>
+          </li>
+          <li>
+            <a href="blog.html" class="menu-brand-link">
+              <svg class="menu-inline-svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+              <span>Bảng Tin TC</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- =========================================================================
+       2. MAIN CONTENT: TRANG TÀI KHOẢN CÁ NHÂN & ĐƠN HÀNG
+       ========================================================================= -->
+  <main class="page-wrapper-main">
+    <div class="container">
+      
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb-nav">
+        <a href="index.html">Trang chủ</a>
+        <span>›</span>
+        <span style="color: var(--text-main); font-weight: 700;">Hồ sơ tài khoản cá nhân</span>
+      </nav>
+
+      <div class="profile-layout-grid" id="profile-content-area">
+        
+        <!-- Sidebar Cột trái -->
+        <aside class="profile-sidebar-card">
+          <div class="profile-avatar-wrap">
+            <div class="profile-avatar-circle" id="profile-avatar-circle">T</div>
+            <h2 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 2px;" id="profile-display-name">Trần Quốc Tiến</h2>
+            <div style="font-size: 0.78rem; color: var(--text-muted);" id="profile-display-email">khachhang@tcsport.vn</div>
+            <div style="margin-top: 8px;">
+              <span style="background: #FEF3C7; color: #92400E; font-size: 0.74rem; font-weight: 800; padding: 3px 8px; border-radius: 999px;">
+                ⭐ HỘI VIÊN VÀNG (GOLD VIP)
+              </span>
+            </div>
+          </div>
+
+          <ul class="profile-nav-links">
+            <li>
+              <a href="javascript:void(0)" class="profile-nav-link active" onclick="switchProfileTab('orders', this)">
+                <span>📦</span> Đơn hàng của tôi
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" class="profile-nav-link" onclick="switchProfileTab('info', this)">
+                <span>👤</span> Thông tin tài khoản
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" class="profile-nav-link" onclick="switchProfileTab('address', this)">
+                <span>📍</span> Sổ địa chỉ nhận hàng
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" class="profile-nav-link" onclick="switchProfileTab('vouchers', this)">
+                <span>🎟️</span> Kho voucher & ưu đãi
+              </a>
+            </li>
+            <li style="border-top: 1px solid #F3EDE3; margin-top: 8px; padding-top: 8px;">
+              <a href="javascript:void(0)" class="profile-nav-link" style="color: #DC2626;" onclick="logoutUser()">
+                <span>🚪</span> Đăng xuất
+              </a>
+            </li>
+          </ul>
+        </aside>
+
+        <!-- Main Panel Cột phải -->
+        <div class="profile-main-card">
+          
+          <!-- TAB 1: ĐƠN HÀNG CỦA TÔI -->
+          <div id="tab-orders" class="profile-tab-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+              <h2 style="font-size: 1.25rem; font-weight: 900;">ĐƠN HÀNG CỦA TÔI</h2>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Tất cả đơn hàng chính hãng</span>
+            </div>
+
+            <!-- Dynamic Orders List -->
+            <div id="user-orders-list">
+              <!-- Rendered via JavaScript -->
+            </div>
+          </div>
+
+          <!-- TAB 2: THÔNG TIN TÀI KHOẢN -->
+          <div id="tab-info" class="profile-tab-content" style="display: none;">
+            <h2 style="font-size: 1.25rem; font-weight: 900; margin-bottom: 20px;">THÔNG TIN CÁ NHÂN</h2>
+            <form onsubmit="handleSaveProfile(event)" style="max-width: 500px;">
+              <div class="form-group" style="margin-bottom: 14px;">
+                <label class="form-label" style="font-size: 0.82rem; font-weight: 700; margin-bottom: 4px; display: block;">Họ và tên</label>
+                <input type="text" class="form-control" value="Trần Quốc Tiến" required style="width: 100%; padding: 8px 12px; border: 1px solid var(--bg-cream-border); border-radius: var(--radius-sm);">
+              </div>
+              <div class="form-group" style="margin-bottom: 14px;">
+                <label class="form-label" style="font-size: 0.82rem; font-weight: 700; margin-bottom: 4px; display: block;">Số điện thoại</label>
+                <input type="tel" class="form-control" value="0973711868" required style="width: 100%; padding: 8px 12px; border: 1px solid var(--bg-cream-border); border-radius: var(--radius-sm);">
+              </div>
+              <div class="form-group" style="margin-bottom: 14px;">
+                <label class="form-label" style="font-size: 0.82rem; font-weight: 700; margin-bottom: 4px; display: block;">Email</label>
+                <input type="email" class="form-control" value="khachhang@tcsport.vn" required style="width: 100%; padding: 8px 12px; border: 1px solid var(--bg-cream-border); border-radius: var(--radius-sm);">
+              </div>
+              <button type="submit" class="btn-primary-checkout" style="padding: 10px 24px; font-size: 0.88rem; border-radius: var(--radius-sm);">
+                Lưu Thay Đổi
+              </button>
+            </form>
+          </div>
+
+          <!-- TAB 3: SỔ ĐỊA CHỈ -->
+          <div id="tab-address" class="profile-tab-content" style="display: none;">
+            <h2 style="font-size: 1.25rem; font-weight: 900; margin-bottom: 20px;">SỔ ĐỊA CHỈ NHẬN HÀNG</h2>
+            <div style="border: 1px solid var(--bg-cream-border); border-radius: var(--radius-md); padding: 16px; margin-bottom: 14px; background: #FAF5EA;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <b style="font-size: 0.92rem;">Trần Quốc Tiến • 0973.711.868</b>
+                <span style="background: var(--color-terracotta); color: #FFF; font-size: 0.68rem; font-weight: 800; padding: 2px 6px; border-radius: 4px;">Mặc định</span>
+              </div>
+              <div style="font-size: 0.84rem; color: var(--text-muted);">
+                249 Xã Đàn, Phường Nam Đồng, Quận Đống Đa, Hà Nội.
+              </div>
+            </div>
+            <button type="button" class="btn-calc-submit" onclick="showToast('Thêm địa chỉ giao hàng mới', 'info')">
+              + Thêm Địa Chỉ Nhận Hàng Mới
+            </button>
+          </div>
+
+          <!-- TAB 4: KHO VOUCHER -->
+          <div id="tab-vouchers" class="profile-tab-content" style="display: none;">
+            <h2 style="font-size: 1.25rem; font-weight: 900; margin-bottom: 20px;">VÍ VOUCHER & ƯU ĐÃI ĐỘC QUYỀN</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+              <div style="border: 1px dashed var(--color-terracotta); border-radius: var(--radius-md); padding: 14px; background: #FFF5F2;">
+                <div style="font-weight: 900; color: var(--color-terracotta); font-size: 1.05rem;">MÃ: TC50K</div>
+                <div style="font-size: 0.82rem; margin: 4px 0;">Giảm 50.000₫ cho đơn hàng từ 1.500.000₫</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted);">Hạn sử dụng: 31/12/2026</div>
+              </div>
+              <div style="border: 1px dashed #059669; border-radius: var(--radius-md); padding: 14px; background: #F0FDF4;">
+                <div style="font-weight: 900; color: #059669; font-size: 1.05rem;">MÃ: FREESHIP</div>
+                <div style="font-size: 0.82rem; margin: 4px 0;">Miễn phí giao hàng hỏa tốc toàn quốc</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted);">Hạn sử dụng: 31/12/2026</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- SIZE GUIDE MODAL (Không có EU) -->
+  <div class="modal-backdrop" id="size-guide-modal" onclick="closeSizeGuideModal()">
+    <div class="modal-dialog sizeguide-dialog" onclick="event.stopPropagation()">
+      <div class="modal-dialog-header">
+        <h3>HƯỚNG DẪN ĐO VÀ CHỌN SIZE GIÀY CHUẨN XÁC</h3>
+        <button type="button" class="btn-close-modal" onclick="closeSizeGuideModal()">✕</button>
+      </div>
+      <div class="modal-dialog-body">
+        <div class="size-calc-card">
+          <div class="calc-label">Nhập chiều dài bàn chân của bạn (cm):</div>
+          <div class="calc-input-row">
+            <input type="number" id="foot-cm-input" class="calc-input" placeholder="VD: 25.5" step="0.1">
+            <button type="button" class="btn-calc-submit" onclick="computeShoeSize()">Tính Size Ngay</button>
+          </div>
+          <div class="calc-result-box" id="calc-result-display">
+            Vui lòng nhập chiều dài bàn chân để nhận tư vấn size chuẩn xác cho tất cả dòng giày thể thao Nike, Adidas, Asics, Lacoste, Puma.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Wrapper -->
+  <div class="toast-wrapper" id="toast-wrapper"></div>
+
+  <!-- =========================================================================
+       3. FOOTER ĐỒNG BỘ
+       ========================================================================= -->
+  <footer class="site-footer-full">
+    <div class="container">
+      <div class="footer-top-columns">
+        <div>
+          <div class="footer-brand-title">TC SPORT<span>.vn</span></div>
+          <div class="footer-tagline">Giày chính hãng! • VN</div>
+          <p class="footer-about-text">
+            TC SPORT là nền tảng mua sắm giày chính hãng hàng đầu Việt Nam với hơn 100.000 khách hàng đã tin tưởng và lựa chọn.
+          </p>
+        </div>
+        <div>
+          <h4 class="footer-heading">CHÍNH SÁCH</h4>
+          <ul class="footer-links-list">
+            <li><a href="cart.html">Thanh toán & giao hàng</a></li>
+            <li><a href="javascript:void(0)" onclick="openSizeGuideModal()">Bảng đo kích cỡ giày</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">VỀ TC SPORT</h4>
+          <ul class="footer-links-list">
+            <li><a href="blog.html">Tin tức & Bảng tin TC Feed</a></li>
+            <li><a href="profile.html">Hồ sơ tài khoản</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">TỔNG ĐÀI HỖ TRỢ</h4>
+          <div class="footer-hotline-card">
+            <div class="hotline-row">
+              <span>Mua hàng:</span>
+              <b><a href="tel:0973711868" style="color: #F87171;">📞 0973711868</a></b>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-middle-divider"></div>
+
+      <div class="footer-bottom-columns">
+        <div>
+          <div class="company-legal-title">CÔNG TY CỔ PHẦN ĐẦU TƯ VÀ CÔNG NGHỆ TCGROUP</div>
+          <div>Địa chỉ: 249 Xã Đàn, Phường Đống Đa, Hà Nội.</div>
+          <div>© 2016 - 2026 TCSPORT.vn. All rights reserved.</div>
+        </div>
+        <div>
+          <div style="font-size: 0.8rem; font-weight: 800; color: #E5E7EB; text-transform: uppercase;">CÙNG HỆ SINH THÁI TCGROUP</div>
+          <div style="font-size: 0.75rem; color: #9CA3AF; margin-top: 4px;">TCWork • TCStyle.vn</div>
+        </div>
+        <div class="trust-badges-wrap">
+          <div class="badge-gov-declared">
+            <span>ĐÃ THÔNG BÁO BỘ CÔNG THƯƠNG</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- AUTH MODAL (ĐĂNG NHẬP / ĐĂNG KÝ / GOOGLE) -->
+  <div class="modal-backdrop" id="auth-modal" onclick="closeAuthModal()">
+    <div class="modal-dialog auth-dialog" onclick="event.stopPropagation()">
+      
+      <!-- Close Button (Absolute positioned for pure symmetry) -->
+      <button type="button" class="btn-close-modal auth-close-btn" onclick="closeAuthModal()" title="Đóng cửa sổ">✕</button>
+
+      <!-- 2 Tabs Switcher (Exactly 50% / 50% Symmetrical) -->
+      <div class="auth-tabs-header">
+        <button type="button" class="auth-tab-btn active" id="btn-tab-login" onclick="switchAuthTab('login')">
+          ĐĂNG NHẬP
+        </button>
+        <button type="button" class="auth-tab-btn" id="btn-tab-register" onclick="switchAuthTab('register')">
+          ĐĂNG KÝ MỚI
+        </button>
+      </div>
+
+      <div class="modal-dialog-body">
+        <button type="button" class="btn-google-login" onclick="handleGoogleLogin()">
+          <svg class="google-icon-svg" width="20" height="20" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          <span>Đăng nhập nhanh với Google</span>
+        </button>
+
+        <div class="auth-social-divider">
+          <span>HOẶC SỬ DỤNG EMAIL / SĐT</span>
+        </div>
+
+        <form id="auth-tab-login-form" onsubmit="handleAuthLogin(event)">
+          <div class="form-group">
+            <label class="form-label">Email hoặc Số điện thoại *</label>
+            <input type="text" id="auth-login-identity" class="form-control" required placeholder="Nhập email hoặc SĐT..." value="khachhang@tcsport.vn">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mật khẩu *</label>
+            <input type="password" id="auth-login-password" class="form-control" required placeholder="Nhập mật khẩu..." value="123456">
+          </div>
+          <div class="auth-footer-help">
+            <label style="display: flex; align-items: center; gap: 7px; cursor: pointer; font-size: 0.85rem; color: var(--text-muted);">
+              <input type="checkbox" checked style="accent-color: var(--color-terracotta); width: 16px; height: 16px;"> Ghi nhớ đăng nhập
+            </label>
+            <a href="javascript:void(0)" onclick="showToast('Vui lòng liên hệ hotline 0973.711.868 để lấy lại mật khẩu nhanh!', 'info')" style="color: var(--color-terracotta); font-weight: 700; text-decoration: none;">Quên mật khẩu?</a>
+          </div>
+          <button type="submit" class="auth-submit-btn">
+            ĐĂNG NHẬP NGAY
+          </button>
+        </form>
+
+        <form id="auth-tab-register-form" onsubmit="handleAuthRegister(event)" style="display: none;">
+          <div class="form-group">
+            <label class="form-label">Họ và tên của bạn *</label>
+            <input type="text" id="auth-reg-name" class="form-control" required placeholder="VD: Nguyễn Văn An">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Số điện thoại *</label>
+            <input type="tel" id="auth-reg-phone" class="form-control" required placeholder="VD: 0912345678">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Địa chỉ Email *</label>
+            <input type="email" id="auth-reg-email" class="form-control" required placeholder="VD: yourname@gmail.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mật khẩu mới *</label>
+            <input type="password" id="auth-reg-password" class="form-control" required placeholder="Tối thiểu 6 ký tự..." minlength="6" value="123456">
+          </div>
+          <button type="submit" class="auth-submit-btn" style="background: var(--color-terracotta);">
+            TẠO TÀI KHOẢN MỚI
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING VERTICAL DOCK (Right side beige space with dynamic wiggle animation) -->
+  <aside class="floating-vertical-dock" aria-label="Thanh công cụ nhanh">
+    <!-- 1. Tìm kiếm chọn lọc -->
+    <a href="category.html" class="dock-action-btn btn-dock-filter dock-wiggle-1" aria-label="Tìm kiếm chọn lọc">
+      <svg viewBox="0 0 24 24"><path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/></svg>
+      <span class="dock-tooltip">🔍 Tìm kiếm chọn lọc</span>
+    </a>
+
+    <!-- 2. Giỏ hàng nhanh -->
+    <a href="cart.html" class="dock-action-btn btn-dock-cart dock-wiggle-2" aria-label="Xem giỏ hàng">
+      <svg viewBox="0 0 24 24"><path d="M19 6h-2c0-2.76-2.24-5-5-5S7 3.24 7 6H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-7-3c1.66 0 3 1.34 3 3H9c0-1.66 1.34-3 3-3zm7 17H5V8h14v12zm-7-8c-1.66 0-3-1.34-3-3H7c0 2.76 2.24 5 5 5s5-2.24 5-5h-2c0 1.66-1.34 3-3 3z"/></svg>
+      <span class="dock-counter-badge" id="dock-cart-counter">1</span>
+      <span class="dock-tooltip">🛒 Giỏ hàng của bạn</span>
+    </a>
+
+    <!-- 3. Tải App TC SPORT (Hover ra mã QR và quà tặng 50K) -->
+    <div class="dock-action-btn btn-dock-app dock-wiggle-3" tabindex="0" role="button" aria-label="Tải app TC SPORT">
+      <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14zm-5-1c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1z"/></svg>
+      <div class="dock-app-popover">
+        <img src="assets/images/banner-app-qr.jpg" alt="Quét mã tải app TC SPORT">
+        <h5>Tải App TC SPORT</h5>
+        <p>Quét mã nhận ngay Voucher 50K</p>
+        <div class="dock-app-badges">
+          <span>iOS</span>
+          <span>Android</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Hotline tư vấn nhanh -->
+    <a href="tel:0973711868" class="dock-action-btn btn-dock-hotline dock-wiggle-4" aria-label="Gọi hotline tư vấn">
+      <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+      <span class="dock-tooltip">📞 Hotline: 0973.711.868</span>
+    </a>
+
+    <!-- 5. Lên đầu trang -->
+    <button type="button" class="dock-action-btn btn-dock-scrolltop" onclick="window.scrollTo({top:0, behavior:'smooth'})" aria-label="Lên đầu trang">
+      <svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+      <span class="dock-tooltip">⬆️ Lên đầu trang</span>
+    </button>
+  </aside>
+
+  <script src="app.js"></script>
+  <script>
+    function checkProfileAuth() {
+      const user = getAuthUser();
+      const area = document.getElementById('profile-content-area');
+      if (!user.isLoggedIn) {
+        if (area) {
+          area.innerHTML = `
+            <div style="background: #FFFFFF; border: 1px solid var(--bg-cream-border); border-radius: var(--radius-lg); padding: 50px 28px; text-align: center; box-shadow: 0 4px 20px rgba(70,50,25,0.06); max-width: 520px; margin: 30px auto; grid-column: 1 / -1;">
+              <div style="font-size: 3.5rem; margin-bottom: 14px; line-height: 1;">🔒</div>
+              <h2 style="font-size: 1.35rem; font-weight: 900; margin-bottom: 10px; color: var(--color-espresso);">BẠN CHƯA ĐĂNG NHẬP TÀI KHOẢN</h2>
+              <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; max-width: 440px; margin: 0 auto 26px;">
+                Vui lòng đăng nhập hoặc tạo tài khoản mới để theo dõi trạng thái đơn hàng, quản lý sổ địa chỉ nhận hàng và nhận ưu đãi độc quyền từ TC SPORT.
+              </p>
+              <div style="display: flex; flex-direction: column; gap: 12px; max-width: 320px; margin: 0 auto;">
+                <button type="button" class="btn-primary-checkout" style="width: 100%; height: 46px; border-radius: var(--radius-sm); font-size: 0.92rem; background: var(--color-terracotta); border: none; cursor: pointer;" onclick="openAuthModal('login')">
+                  Đăng Nhập Ngay
+                </button>
+                <button type="button" class="btn-google-login" style="width: 100%; height: 44px; border-radius: var(--radius-sm); border: 1.5px solid #E5E7EB; background: #FFFFFF; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 700; font-size: 0.88rem; cursor: pointer;" onclick="handleGoogleLogin()">
+                  <svg class="google-icon-svg" width="20" height="20" style="width: 20px; height: 20px; min-width: 20px; min-height: 20px; max-width: 20px; max-height: 20px; display: inline-block; vertical-align: middle;" viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                  </svg>
+                  <span>Đăng nhập với Google</span>
+                </button>
+                <a href="index.html" style="margin-top: 6px; font-size: 0.85rem; color: var(--text-muted); text-decoration: underline;">← Quay lại Trang chủ</a>
+              </div>
+            </div>
+          `;
+        }
+      } else {
+        const nameEl = document.getElementById('profile-display-name');
+        const emailEl = document.getElementById('profile-display-email');
+        const avatarEl = document.getElementById('profile-avatar-circle');
+        if (nameEl) nameEl.textContent = user.name;
+        if (emailEl) emailEl.textContent = user.email || "khachhang@tcsport.vn";
+        if (avatarEl) avatarEl.textContent = user.name.charAt(0).toUpperCase();
+        renderUserOrders();
+      }
+    }
+
+    function switchProfileTab(tabName, linkEl) {
+      document.querySelectorAll('.profile-tab-content').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.profile-nav-link').forEach(el => el.classList.remove('active'));
+      
+      const target = document.getElementById('tab-' + tabName);
+      if (target) target.style.display = 'block';
+      if (linkEl) linkEl.classList.add('active');
+    }
+
+    function renderUserOrders() {
+      const container = document.getElementById('user-orders-list');
+      if (!container) return;
+
+      let storedOrders = [];
+      try {
+        storedOrders = JSON.parse(localStorage.getItem('tc_user_orders') || '[]');
+      } catch (e) {}
+
+      const sampleOrders = [
+        {
+          id: 'TC89214',
+          date: '19/10/2026',
+          status: 'Đang vận chuyển hỏa tốc',
+          statusClass: 'status-badge-shipping',
+          total: '2.540.000₫',
+          item: 'Giày Chạy Bộ Nike Air Zoom Pegasus 41',
+          size: '41',
+          image: 'assets/images/shoe-pegasus-blue.jpg'
+        },
+        {
+          id: 'TC76412',
+          date: '05/10/2026',
+          status: 'Giao hàng thành công',
+          statusClass: 'status-badge-delivered',
+          total: '2.890.000₫',
+          item: 'Giày Tennis/Pickleball Asics Solution Speed FF 3',
+          size: '42',
+          image: 'assets/images/shoe-asics-runner.jpg'
+        }
+      ];
+
+      let html = '';
+
+      if (storedOrders.length > 0) {
+        html += storedOrders.map(order => `
+          <div class="order-history-item">
+            <div class="order-history-header">
+              <div>
+                <b>Đơn hàng #${order.id}</b>
+                <span style="font-size: 0.76rem; color: var(--text-muted); margin-left: 8px;">Ngày đặt: ${order.date}</span>
+              </div>
+              <span class="status-badge-shipping">${order.status}</span>
+            </div>
+            <div style="font-size: 0.85rem; margin-bottom: 8px;">
+              <b>Người nhận:</b> ${order.name} - ${order.phone} (${order.address})
+            </div>
+            <div style="font-size: 0.84rem; color: var(--text-muted); margin-bottom: 8px;">
+              ${order.items.map(it => `<div>• ${it.name} - Size ${it.size} x ${it.quantity}</div>`).join('')}
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #F3EDE3; padding-top: 8px;">
+              <span style="font-size: 0.84rem;">Tổng tiền: <b style="color: var(--color-terracotta); font-size: 0.95rem;">${order.total}</b></span>
+              <button type="button" class="btn-calc-submit" style="padding: 4px 12px; font-size: 0.76rem;" onclick="showToast('Đang theo dõi vị trí shipper giao hàng...', 'info')">Theo Dõi Vận Chuyển</button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      html += sampleOrders.map(order => `
+        <div class="order-history-item">
+          <div class="order-history-header">
+            <div>
+              <b>Đơn hàng #${order.id}</b>
+              <span style="font-size: 0.76rem; color: var(--text-muted); margin-left: 8px;">Ngày đặt: ${order.date}</span>
+            </div>
+            <span class="${order.statusClass}">${order.status}</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 10px;">
+            <img src="${order.image}" alt="${order.item}" style="width: 56px; height: 56px; object-fit: cover; border-radius: var(--radius-sm); border: 1px solid #E5E7EB;">
+            <div>
+              <div style="font-size: 0.88rem; font-weight: 700;">${order.item}</div>
+              <div style="font-size: 0.78rem; color: var(--text-muted);">Size: <b style="color: var(--color-terracotta);">Size ${order.size}</b> • Số lượng: 1</div>
+            </div>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #F3EDE3; padding-top: 8px;">
+            <span style="font-size: 0.84rem;">Tổng tiền: <b style="color: var(--color-terracotta); font-size: 0.95rem;">${order.total}</b></span>
+            <button type="button" class="btn-calc-submit" style="padding: 4px 12px; font-size: 0.76rem;" onclick="window.location.href='cart.html'">Mua Lại Đơn Này</button>
+          </div>
+        </div>
+      `).join('');
+
+      container.innerHTML = html;
+    }
+
+    function handleSaveProfile(e) {
+      e.preventDefault();
+      showToast('Cập nhật thông tin tài khoản thành công!', 'success');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      checkProfileAuth();
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('ordered') === 'true') {
+        showToast('Đơn hàng của bạn đã được ghi nhận vào hệ thống!', 'success');
+      }
+    });
+  </script>
+</body>
+</html>

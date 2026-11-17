@@ -1,0 +1,41 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Production build outputs
+dist
+dist-ssr
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Python cache & temp
+__pycache__/
+*.py[cod]
+screenshot_home.png
+
+# Editor and OS files
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+
+# Java & Backend builds
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+apache-maven-3.9.6-bin.zip
+
+# Large docx documents
+*.docx
+*.doc
