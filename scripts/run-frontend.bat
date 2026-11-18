@@ -4,6 +4,6 @@ color 0B
 echo ========================================================
 echo       DANG KHOI DONG TC SPORT FRONTEND (PORT 8080)
 echo ========================================================
-cd /d "%~dp0"
+cd /d "%~dp0.."
 call npm run dev
 pause

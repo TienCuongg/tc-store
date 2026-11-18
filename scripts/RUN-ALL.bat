@@ -6,13 +6,13 @@ echo       KHOI DONG TOAN BO HE THONG TC SPORT (AI READY)
 echo ========================================================
 echo.
 echo 1. Dang mo Backend Spring Boot (Port 8081)...
-start "TC SPORT - Backend 8081" cmd /k "cd /d %~dp0backend && mvnw.bat spring-boot:run"
+start "TC SPORT - Backend 8081" cmd /k "cd /d %~dp0..\backend && mvnw.bat spring-boot:run"
 
 echo 2. Cho Backend san sang trong 5 giay...
 timeout /t 5 >nul
 
 echo 3. Dang mo Frontend Vite (Port 8080)...
-start "TC SPORT - Frontend 8080" cmd /k "cd /d %~dp0 && npm run dev"
+start "TC SPORT - Frontend 8080" cmd /k "cd /d %~dp0.. && npm run dev"
 
 echo.
 echo ========================================================

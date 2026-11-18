@@ -4,6 +4,6 @@ color 0A
 echo ========================================================
 echo       DANG KHOI DONG TC SPORT BACKEND (PORT 8081)
 echo ========================================================
-cd /d "%~dp0backend"
+cd /d "%~dp0..\backend"
 call mvnw.bat spring-boot:run
 pause
