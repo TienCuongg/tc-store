@@ -10,15 +10,49 @@ function getGeminiKeys() {
     .filter(Boolean);
 }
 
-const CATALOG_SNAPSHOT = `
-[1] Nike Air Zoom Pegasus 41 | Nike | Chạy bộ đường dài | 3.590.000đ | Size: 39, 40, 41, 42, 43 | Đệm Air Zoom kép, siêu êm, hoàn trả lực tốt
-[2] Adidas Ultraboost Light 2026 | Adidas | Chạy bộ & Daily | 3.990.000đ | Size: 40, 41, 42, 43 | Đệm Light BOOST nhẹ hơn 30%, êm ái bảo vệ khớp
-[3] Asics Gel-Kayano 31 | Asics | Chạy bộ bảo vệ cổ chân | 4.190.000đ | Size: 39, 40, 41, 42 | Hệ thống 4D GUIDANCE chống lệch lật cổ chân, đệm PureGEL
-[4] Asics Gel-Resolution 9 | Asics | Pickleball & Tennis sân cứng | 3.290.000đ | Size: 40, 41, 42, 43 | Đế AHAR+ chống mòn sân bê tông nhám, đệm GEL êm
-[5] Nike Court Air Zoom Vapor Pro 2 | Nike | Pickleball & Tennis | 2.890.000đ | Size: 39, 40, 41, 42 | Trọng lượng nhẹ, đệm Zoom Air mũi chân, bứt tốc nhanh
-[6] Lacoste Carnaby Pro Leather | Lacoste | Sneaker Casual | 2.990.000đ | Size: 40, 41, 42 | Da thật cao cấp màu be trắng, thanh lịch dễ phối đồ
-[7] Puma Deviate Nitro Elite 3 | Puma | Chạy bộ tốc độ | 3.790.000đ | Size: 40, 41, 42, 43 | Đệm NITRO Elite có đĩa carbon INNOPLATE hỗ trợ bứt tốc
-`;
+// Danh mục kho hàng thực tế đầy đủ 36 sản phẩm của TC SPORT
+const ALL_STORE_PRODUCTS = {
+  1: { id: 1, name: "Giày Nike Air Zoom Pegasus 40 Nam - Xanh Dương", price: 2390000, brand: "Nike", category: "running", image: "assets/images/shoe-pegasus-blue.jpg" },
+  2: { id: 2, name: "Giày Air Jordan 1 Retro High OG - Đỏ Chicago", price: 4690000, brand: "Jordan", category: "basketball", image: "assets/images/shoe-retro-high.jpg" },
+  3: { id: 3, name: "Giày Nike Free Metcon 5 - Đen Vàng Volt Gym", price: 3190000, brand: "Nike", category: "training", image: "assets/images/shoe-metcon-volt.jpg" },
+  4: { id: 4, name: "Giày Tennis Pickleball TC Apex Pro - Xanh Hoàng Gia", price: 2490000, brand: "TC Sport", category: "pickleball", image: "assets/images/shoe-pickleball-pro.jpg" },
+  5: { id: 5, name: "Giày Asics Gel-Nimbus 25 - Xanh Bạc Kim", price: 3650000, brand: "Asics", category: "running", image: "assets/images/shoe-asics-runner.jpg" },
+  6: { id: 6, name: "Giày Nike Air Zoom Pegasus 41 Nữ - Trắng Xanh", price: 2190000, brand: "Nike", category: "running", image: "assets/images/shoe-running-pro.jpg" },
+  7: { id: 7, name: "Giày Nike Air Zoom Pegasus 40 Nam - Xanh Dương", price: 2390000, brand: "Nike", category: "running", image: "assets/images/shoe-pegasus-blue.jpg" },
+  8: { id: 8, name: "Giày Marathon TC Velocity-X Pro Carbon - Đen Đỏ", price: 2390000, brand: "TC Sport", category: "running", image: "assets/images/hero-sneaker.jpg" },
+  9: { id: 9, name: "Giày Sneaker TC Retro Sand Classic - Be Cát", price: 1690000, brand: "TC Sport", category: "lifestyle", image: "assets/images/shoe-beige-retro.jpg" },
+  10: { id: 10, name: "Giày Nike Air Max Bella TR 5 Nữ - Đen Hồng", price: 1290000, brand: "Nike", category: "training", image: "assets/images/shoe-metcon-volt.jpg" },
+  11: { id: 11, name: "Giày Chạy Bộ Nike ZoomX Vaporfly Next% 3 - Trắng Xanh", price: 4950000, brand: "Nike", category: "running", image: "assets/images/shoe-running-pro.jpg" },
+  12: { id: 12, name: "Giày Adidas Ultraboost Light 23 - Trắng Kem Be", price: 3390000, brand: "Adidas", category: "running", image: "assets/images/shoe-beige-retro.jpg" },
+  13: { id: 13, name: "Giày Tennis/Pickleball Asics Solution Speed FF 3", price: 2890000, brand: "Asics", category: "pickleball", image: "assets/images/shoe-asics-runner.jpg" },
+  14: { id: 14, name: "Giày Lacoste Carnaby Pro Leather - Trắng Viền Đen", price: 2790000, brand: "Lacoste", category: "lifestyle", image: "assets/images/hero-sneaker.jpg" },
+  15: { id: 15, name: "Giày Puma Deviate Nitro 2 Carbon - Xanh Đen Volt", price: 2990000, brand: "Puma", category: "running", image: "assets/images/shoe-metcon-volt.jpg" },
+  16: { id: 16, name: "Giày Chạy Bộ Nam Asics Novablast 4 - Xám Bạc", price: 2490000, brand: "Asics", category: "running", image: "assets/images/shoe-asics-runner.jpg" },
+  17: { id: 17, name: "Giày Pickleball Pro Court - Trắng Xanh Hoàng Gia", price: 1850000, brand: "TC Sport", category: "pickleball", image: "assets/images/shoe-pickleball-pro.jpg" },
+  18: { id: 18, name: "Giày Nike Air Jordan 1 Low OG - Xám Tro Shadow", price: 3290000, brand: "Jordan", category: "lifestyle", image: "assets/images/shoe-retro-high.jpg" },
+  19: { id: 19, name: "Giày Thể Thao Lacoste T-Clip Leather - Trắng Be", price: 2450000, brand: "Lacoste", category: "lifestyle", image: "assets/images/hero-beige-sneakers.jpg" },
+  20: { id: 20, name: "Giày Chạy Bộ Nike Air Zoom Structure 25 - Đen Trắng", price: 2150000, brand: "Nike", category: "running", image: "assets/images/shoe-pegasus-blue.jpg" },
+  21: { id: 21, name: "Giày Sneaker Adidas Samba OG - Trắng Sọc Đen Gum", price: 2790000, brand: "Adidas", category: "lifestyle", image: "assets/images/hero-beige-sneakers.jpg" },
+  22: { id: 22, name: "Giày Chạy Bộ Adidas Adizero Adios Pro 3 - Cam Neon", price: 4890000, brand: "Adidas", category: "running", image: "assets/images/shoe-running-pro.jpg" },
+  23: { id: 23, name: "Giày Tennis/Pickleball Adidas Barricade 13 - Trắng Xanh", price: 3150000, brand: "Adidas", category: "pickleball", image: "assets/images/shoe-pickleball-pro.jpg" },
+  24: { id: 24, name: "Giày Sneaker Adidas Stan Smith Lux - Trắng Viền Xanh Lá", price: 2690000, brand: "Adidas", category: "lifestyle", image: "assets/images/hero-sneaker.jpg" },
+  25: { id: 25, name: "Giày Tập Gym Nam Adidas Dropset 2 - Đen Xám", price: 2490000, brand: "Adidas", category: "training", image: "assets/images/shoe-metcon-volt.jpg" },
+  26: { id: 26, name: "Giày Chạy Bộ Asics Gel-Kayano 30 - Xanh Dương Gradient", price: 3890000, brand: "Asics", category: "running", image: "assets/images/shoe-asics-runner.jpg" },
+  27: { id: 27, name: "Giày Tennis/Pickleball Asics Court FF 3 Novak - Đỏ Trắng", price: 3950000, brand: "Asics", category: "pickleball", image: "assets/images/shoe-pickleball-pro.jpg" },
+  28: { id: 28, name: "Giày Sneaker Puma Suede Classic XXI - Đen Trắng", price: 1890000, brand: "Puma", category: "lifestyle", image: "assets/images/shoe-metcon-volt.jpg" },
+  29: { id: 29, name: "Giày Bóng Rổ Puma Court Rider Chaos - Xanh Neon Đỏ", price: 2290000, brand: "Puma", category: "basketball", image: "assets/images/shoe-retro-high.jpg" },
+  30: { id: 30, name: "Giày Chạy Bộ Puma Velocity Nitro 3 - Cam Lửa", price: 2590000, brand: "Puma", category: "running", image: "assets/images/shoe-running-pro.jpg" },
+  31: { id: 31, name: "Giày Thể Thao Lacoste Lineshot Court - Trắng Xanh Rêu", price: 3250000, brand: "Lacoste", category: "lifestyle", image: "assets/images/hero-beige-sneakers.jpg" },
+  32: { id: 32, name: "Giày Tennis/Pickleball Lacoste AG-LT23 Ultra - Trắng Đỏ", price: 3890000, brand: "Lacoste", category: "pickleball", image: "assets/images/shoe-pickleball-pro.jpg" },
+  33: { id: 33, name: "Giày Bóng Rổ Jordan Luka 2 - Trắng Tím Độc Bản", price: 3590000, brand: "Jordan", category: "basketball", image: "assets/images/shoe-retro-high.jpg" },
+  34: { id: 34, name: "Giày Chạy Bộ Nike InfinityRN 4 - Xanh Pastel", price: 2990000, brand: "Nike", category: "running", image: "assets/images/shoe-running-pro.jpg" },
+  35: { id: 35, name: "Giày Tập Gym Nữ Nike Metcon 9 - Trắng Hồng Rose", price: 3290000, brand: "Nike", category: "training", image: "assets/images/shoe-metcon-volt.jpg" },
+  36: { id: 36, name: "Giày Chạy Bộ TC Sport Storm Runner 2.0 - Đen Xanh", price: 1590000, brand: "TC Sport", category: "running", image: "assets/images/shoe-asics-runner.jpg" }
+};
+
+const CATALOG_SNAPSHOT = Object.values(ALL_STORE_PRODUCTS)
+  .map(p => `[${p.id}] ${p.name} | ${p.brand} | ${p.category} | ${p.price.toLocaleString('vi-VN')}đ | Size: 39, 40, 41, 42, 43`)
+  .join('\n');
 
 let currentKeyIndex = 0;
 
@@ -46,19 +80,20 @@ export default async function handler(req, res) {
     });
   }
 
-  const systemInstruction = `Bạn là Trợ lý AI chuyên gia tư vấn giày thể thao tại TC SPORT (Việt Nam).
-KHO HÀNG THỰC TẾ CỦA SHOP HIỆN TẠI:
+  const systemInstruction = `Bạn là Trợ lý AI chuyên gia tư vấn giày thể thao tại hệ thống TC SPORT (Việt Nam).
+KHO HÀNG THỰC TẾ ĐẦY ĐỦ CỦA SHOP HIỆN TẠI (36 SẢN PHẨM):
 ${CATALOG_SNAPSHOT}
 
-QUY TẮC CỐT LÕI (BẮT BUỘC TUÂN THỦ ĐỂ TIẾT KIỆM TOKEN):
-1. TẬP TRUNG 100% VÀO CÂU HỎI CHÍNH, ĐI THẲNG VÀO TRỌNG TÂM, TUYỆT ĐỐI KHÔNG LAN MAN.
-2. KHÔNG chào hỏi dài dòng, không cảm ơn rườm rà.
-3. Trả lời từ 2 - 4 câu súc tích: nêu rõ tại sao mẫu giày hoặc size này phù hợp với nhu cầu của khách (công nghệ đế/đệm, bám sân, chân bè/thon, mức giá).
-4. CHỈ gợi ý các ID sản phẩm CÓ THỰC trong kho ở trên. Tối đa 1-3 ID sản phẩm phù hợp nhất.
-5. LUÔN TRẢ VỀ ĐỊNH DẠNG JSON DUY NHẤT theo schema sau:
+QUY TẮC CỐT LÕI (BẮT BUỘC TUÂN THỦ):
+1. ĐI THẲNG VÀO TRỌNG TÂM CÂU HỎI: Phân tích ngắn gọn ưu điểm (độ êm, đệm bọt, trợ lực, độ bám sân, phân khúc giá) của từng mẫu để khách dễ chọn.
+2. GỢI Ý ĐẦY ĐỦ VÀ ĐA DẠNG SẢN PHẨM:
+   - BẮT BUỘC gợi ý ĐẦY ĐỦ từ 3 ĐẾN 6 SẢN PHẨM phù hợp nhất với yêu cầu của khách hàng (không được chỉ gợi ý 1-2 sản phẩm).
+   - Hãy bao quát các mức giá và thương hiệu khác nhau (Nike, Adidas, Asics, Puma, TC Sport...) để khách hàng có nhiều sự lựa chọn phong phú nhất.
+3. CHỈ gợi ý các ID sản phẩm CÓ THỰC trong kho ở trên.
+4. LUÔN TRẢ VỀ ĐỊNH DẠNG JSON DUY NHẤT theo schema sau:
 {
-  "reply": "Lời tư vấn ngắn gọn, chuẩn xác đi thẳng vào trọng tâm câu hỏi...",
-  "suggestedProductIds": [1, 5]
+  "reply": "Lời tư vấn chi tiết, súc tích so sánh các mẫu giày nổi bật...",
+  "suggestedProductIds": [id1, id2, id3, id4, id5]
 }`;
 
   // Format history for Gemini
@@ -84,8 +119,8 @@ QUY TẮC CỐT LÕI (BẮT BUỘC TUÂN THỦ ĐỂ TIẾT KIỆM TOKEN):
     },
     contents,
     generationConfig: {
-      temperature: 0.3,
-      maxOutputTokens: 600,
+      temperature: 0.35,
+      maxOutputTokens: 800,
       responseMimeType: "application/json"
     }
   };
@@ -134,23 +169,12 @@ QUY TẮC CỐT LÕI (BẮT BUỘC TUÂN THỦ ĐỂ TIẾT KIỆM TOKEN):
 
           currentKeyIndex = keyIdx; // Save working key
 
-          // Map suggested product ids to objects
-          const productsMap = {
-            1: { id: 1, name: "Giày Chạy Bộ Nike Air Zoom Pegasus 41", price: 3590000, brand: "Nike", image: "assets/images/shoe-pegasus-blue.jpg" },
-            2: { id: 2, name: "Giày Chạy Bộ Adidas Ultraboost Light 2026", price: 3990000, brand: "Adidas", image: "assets/images/shoe-running-pro.jpg" },
-            3: { id: 3, name: "Giày Chạy Bộ Asics Gel-Kayano 31", price: 4190000, brand: "Asics", image: "assets/images/shoe-pickleball-court.jpg" },
-            4: { id: 4, name: "Giày Pickleball Asics Gel-Resolution 9 Sân Xi Măng", price: 3290000, brand: "Asics", image: "assets/images/shoe-pickleball-court.jpg" },
-            5: { id: 5, name: "Giày Pickleball Nike Court Air Zoom Vapor Pro 2", price: 2890000, brand: "Nike", image: "assets/images/shoe-pegasus-blue.jpg" },
-            6: { id: 6, name: "Giày Sneaker Nam Lacoste Carnaby Pro Leather", price: 2990000, brand: "Lacoste", image: "assets/images/shoe-lacoste-white.jpg" },
-            7: { id: 7, name: "Giày Chạy Bộ Puma Deviate Nitro Elite 3", price: 3790000, brand: "Puma", image: "assets/images/shoe-puma-fast.jpg" }
-          };
-
           const suggestedProducts = (parsed.suggestedProductIds || [])
-            .map(id => productsMap[id])
+            .map(id => ALL_STORE_PRODUCTS[id])
             .filter(Boolean);
 
           return res.status(200).json({
-            reply: parsed.reply || "Dưới đây là một số mẫu giày phù hợp với bạn:",
+            reply: parsed.reply || "Dưới đây là danh sách đầy đủ các mẫu giày phù hợp nhất với nhu cầu của bạn:",
             suggestedProducts,
             activeModel: model,
             keyIndexUsed: keyIdx + 1
@@ -166,10 +190,13 @@ QUY TẮC CỐT LÕI (BẮT BUỘC TUÂN THỦ ĐỂ TIẾT KIỆM TOKEN):
 
   // Fallback response if all keys or models fail
   return res.status(200).json({
-    reply: "Chào bạn! Hiện tại Trợ lý AI đang có nhiều lượt hỏi cùng lúc. Bạn có thể tham khảo ngay mẫu Nike Pegasus 41 (chạy bộ êm) hoặc Asics Gel-Resolution 9 (pickleball sân bê tông) tại danh mục của shop nhé!",
+    reply: "Chào bạn! TC SPORT xin gợi ý bộ sưu tập các mẫu giày bán chạy và được ưa chuộng nhất trong kho hiện tại:",
     suggestedProducts: [
-      { id: 1, name: "Giày Chạy Bộ Nike Air Zoom Pegasus 41", price: 3590000, brand: "Nike", image: "assets/images/shoe-pegasus-blue.jpg" },
-      { id: 4, name: "Giày Pickleball Asics Gel-Resolution 9 Sân Xi Măng", price: 3290000, brand: "Asics", image: "assets/images/shoe-pickleball-court.jpg" }
+      ALL_STORE_PRODUCTS[1],
+      ALL_STORE_PRODUCTS[16],
+      ALL_STORE_PRODUCTS[4],
+      ALL_STORE_PRODUCTS[12],
+      ALL_STORE_PRODUCTS[30]
     ],
     activeModel: "fallback-catalog"
   });

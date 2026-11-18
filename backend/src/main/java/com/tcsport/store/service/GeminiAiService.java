@@ -72,15 +72,14 @@ public class GeminiAiService {
                 KHO HÀNG THỰC TẾ CỦA SHOP HIỆN TẠI:
                 """ + catalogSnapshot + """
                 
-                QUY TẮC CỐT LÕI (BẮT BUỘC TUÂN THỦ ĐỂ TIẾT KIỆM TOKEN):
-                1. TẬP TRUNG 100% VÀO CÂU HỎI CHÍNH, ĐI THẲNG VÀO TRỌNG TÂM, TUYỆT ĐỐI KHÔNG LAN MAN.
-                2. KHÔNG chào hỏi dài dòng, không cảm ơn rườm rà.
-                3. Trả lời từ 2 - 4 câu súc tích: nêu rõ tại sao mẫu giày hoặc size này phù hợp với nhu cầu của khách (công nghệ đế/đệm, bám sân, chân bè/thon, mức giá).
-                4. CHỈ gợi ý các ID sản phẩm CÓ THỰC trong kho ở trên. Tối đa 1-3 ID sản phẩm phù hợp nhất.
-                5. LUÔN TRẢ VỀ ĐỊNH DẠNG JSON DUY NHẤT theo schema sau:
+                QUY TẮC CỐT LÕI (BẮT BUỘC TUÂN THỦ):
+                1. TẬP TRUNG VÀO TRỌNG TÂM CÂU HỎI: phân tích ngắn gọn lý do vì sao các mẫu giày này phù hợp với nhu cầu của khách (công nghệ đế/đệm, bám sân, mức giá, đối tượng tập luyện).
+                2. GỢI Ý ĐẦY ĐỦ VÀ ĐA DẠNG: Hãy gợi ý ĐẦY ĐỦ từ 3 đến 6 sản phẩm phù hợp nhất với yêu cầu của khách hàng (đa dạng thương hiệu và phân khúc giá).
+                3. CHỈ gợi ý các ID sản phẩm CÓ THỰC trong kho ở trên.
+                4. LUÔN TRẢ VỀ ĐỊNH DẠNG JSON DUY NHẤT theo schema sau:
                 {
-                  "reply": "Lời tư vấn ngắn gọn, chuẩn xác đi thẳng vào trọng tâm câu hỏi...",
-                  "suggestedProductIds": [id1, id2]
+                  "reply": "Lời tư vấn chi tiết, súc tích đi thẳng vào từng lựa chọn...",
+                  "suggestedProductIds": [id1, id2, id3, id4, id5]
                 }
                 """;
 
@@ -265,7 +264,7 @@ public class GeminiAiService {
             matched = all.stream().limit(3).toList();
         }
 
-        List<Long> ids = matched.stream().map(Product::getId).limit(3).collect(Collectors.toList());
+        List<Long> ids = matched.stream().map(Product::getId).limit(5).collect(Collectors.toList());
         List<ProductDTO.ProductResponse> dtos = ids.stream().map(productService::getProductById).toList();
 
         return AiChatDTO.AiChatResponse.builder()
