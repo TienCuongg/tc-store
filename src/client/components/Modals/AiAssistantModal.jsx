@@ -75,10 +75,21 @@ export default function AiAssistantModal({ isOpen, onClose, onQuickView, onNavig
 
       const res = await api.ai.chat(query, history);
 
+      let replyText = res.reply || 'Dưới đây là một số gợi ý giày phù hợp nhất với bạn:';
+      if (typeof replyText === 'string' && replyText.trim().startsWith('{') && replyText.includes('"reply"')) {
+        try {
+          const parsed = JSON.parse(replyText);
+          if (parsed.reply) replyText = parsed.reply;
+        } catch (e) {
+          const m = replyText.match(/"reply"\s*:\s*"([\s\S]*?)"/);
+          if (m) replyText = m[1].replace(/\\"/g, '"').replace(/\\n/g, '\n');
+        }
+      }
+
       const aiMsg = {
         id: Date.now() + 1,
         sender: 'ai',
-        text: res.reply || 'Dưới đây là một số gợi ý giày phù hợp nhất với bạn:',
+        text: replyText,
         suggestedProducts: res.suggestedProducts || [],
         activeModel: res.activeModel,
         keyIndexUsed: res.keyIndexUsed
