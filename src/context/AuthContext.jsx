@@ -146,10 +146,10 @@ export function AuthProvider({ children }) {
   };
 
   // Xử lý xác thực Google thật bằng ID Token Credential
-  const handleGoogleCredential = (credential) => {
+  const handleGoogleCredential = async (credential) => {
     const payload = parseJwt(credential);
     if (payload) {
-      const updated = {
+      let updated = {
         isLoggedIn: true,
         name: payload.name || 'Người dùng Google',
         email: payload.email || '',
@@ -159,6 +159,30 @@ export function AuthProvider({ children }) {
         address: authUser.address || '249 Xã Đàn, Nam Đồng, Đống Đa, Hà Nội',
         loginMethod: 'google'
       };
+
+      // Tự động đồng bộ tài khoản Google vào cơ sở dữ liệu MySQL backend
+      try {
+        const { api } = await import('../services/api');
+        const res = await api.auth.googleSync({
+          name: updated.name,
+          email: updated.email,
+          avatar: updated.avatar,
+          phone: updated.phone,
+          address: updated.address,
+          googleId: updated.googleId
+        });
+        if (res && res.token) {
+          updated.token = res.token;
+          updated.id = res.id;
+          if (res.name) updated.name = res.name;
+          if (res.phone) updated.phone = res.phone;
+          if (res.address) updated.address = res.address;
+          if (res.role) updated.role = res.role;
+        }
+      } catch (err) {
+        console.warn('Đồng bộ tài khoản Google vào backend MySQL thất bại (dùng dữ liệu offline):', err);
+      }
+
       setAuthUser(updated);
       closeAuthModal();
       return updated;

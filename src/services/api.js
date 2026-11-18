@@ -68,6 +68,12 @@ export const api = {
         body: JSON.stringify(userData)
       }),
 
+    googleSync: (googleUserData) =>
+      request('/api/auth/google', {
+        method: 'POST',
+        body: JSON.stringify(googleUserData)
+      }),
+
     updateProfile: (profileData) =>
       request('/api/auth/profile', {
         method: 'PUT',

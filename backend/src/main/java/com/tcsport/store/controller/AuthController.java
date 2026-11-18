@@ -34,10 +34,22 @@ public class AuthController {
         }
     }
 
+    @PostMapping("/google")
+    public ResponseEntity<?> googleSync(@RequestBody AuthDTO.GoogleSyncRequest request) {
+        try {
+            AuthDTO.AuthResponse response = userService.syncGoogleUser(request);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     @PutMapping("/profile")
     public ResponseEntity<?> updateProfile(@RequestBody AuthDTO.UserProfileUpdate request, Authentication auth) {
         try {
-            String email = auth.getName();
+            String email = (auth != null && auth.isAuthenticated() && !auth.getName().equals("anonymousUser"))
+                    ? auth.getName()
+                    : request.getEmail();
             AuthDTO.AuthResponse response = userService.updateProfile(email, request);
             return ResponseEntity.ok(response);
         } catch (Exception e) {

@@ -92,35 +92,69 @@ export default function ProfilePage({ onNavigate }) {
   // -------------------------------------------------------------
   // 3. HÀM LƯU THAY ĐỔI THÔNG TIN CÁ NHÂN (TAB 2)
   // -------------------------------------------------------------
-  const handleSaveInfo = (e) => {
+  const handleSaveInfo = async (e) => {
     e.preventDefault();
     if (!name.trim()) {
       showToast('Vui lòng nhập họ và tên!', 'warning');
       return;
     }
-    updateUser({
+    const updated = updateUser({
       name: name.trim(),
       phone: phone.trim(),
       email: email.trim(),
       address: address.trim()
     });
+
+    // Đồng bộ trực tiếp vào cơ sở dữ liệu MySQL backend
+    try {
+      const { api } = await import('../../services/api');
+      await api.auth.updateProfile({
+        name: name.trim(),
+        phone: phone.trim(),
+        email: email.trim(),
+        address: address.trim(),
+        avatar: authUser.avatar || ''
+      });
+    } catch (err) {
+      console.warn('Lưu vào MySQL backend chưa thành công (lưu local):', err);
+    }
+
     showToast('Cập nhật thông tin tài khoản và địa chỉ thành công!', 'success');
   };
 
   // -------------------------------------------------------------
   // 4. HÀM LƯU THAY ĐỔI ĐỊA CHỈ NHẬN HÀNG (TAB 3)
   // -------------------------------------------------------------
-  const handleSaveAddress = (e) => {
+  const handleSaveAddress = async (e) => {
     e.preventDefault();
     if (!addrDetail.trim()) {
       showToast('Vui lòng nhập địa chỉ giao hàng chi tiết!', 'warning');
       return;
     }
+    const updatedName = addrRecipient.trim() || authUser.name;
+    const updatedPhone = addrPhone.trim() || authUser.phone;
+    const updatedAddress = addrDetail.trim();
+
     updateUser({
-      name: addrRecipient.trim() || authUser.name,
-      phone: addrPhone.trim() || authUser.phone,
-      address: addrDetail.trim()
+      name: updatedName,
+      phone: updatedPhone,
+      address: updatedAddress
     });
+
+    // Đồng bộ địa chỉ vào MySQL backend
+    try {
+      const { api } = await import('../../services/api');
+      await api.auth.updateProfile({
+        name: updatedName,
+        phone: updatedPhone,
+        email: authUser.email,
+        address: updatedAddress,
+        avatar: authUser.avatar || ''
+      });
+    } catch (err) {
+      console.warn('Lưu địa chỉ vào MySQL backend chưa thành công:', err);
+    }
+
     setIsEditingAddress(false);
     showToast('Cập nhật địa chỉ nhận hàng thành công!', 'success');
   };

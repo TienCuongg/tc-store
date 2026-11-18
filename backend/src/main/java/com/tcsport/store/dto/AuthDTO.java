@@ -47,7 +47,22 @@ public class AuthDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
+    public static class GoogleSyncRequest {
+        private String name;
+        private String email;
+        private String avatar;
+        private String phone;
+        private String address;
+        private String googleId;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
     public static class UserProfileUpdate {
+        private String email;
         private String name;
         private String phone;
         private String address;

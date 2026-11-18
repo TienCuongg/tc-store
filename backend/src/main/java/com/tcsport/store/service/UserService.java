@@ -68,14 +68,74 @@ public class UserService {
                 .build();
     }
 
-    public AuthDTO.AuthResponse updateProfile(String email, AuthDTO.UserProfileUpdate request) {
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng!"));
+    public AuthDTO.AuthResponse syncGoogleUser(AuthDTO.GoogleSyncRequest request) {
+        if (request.getEmail() == null || request.getEmail().isBlank()) {
+            throw new RuntimeException("Email không được để trống!");
+        }
 
-        if (request.getName() != null) user.setName(request.getName().trim());
-        if (request.getPhone() != null) user.setPhone(request.getPhone().trim());
-        if (request.getAddress() != null) user.setAddress(request.getAddress().trim());
-        if (request.getAvatar() != null) user.setAvatar(request.getAvatar().trim());
+        String targetEmail = request.getEmail().trim().toLowerCase();
+        User user = userRepository.findByEmail(targetEmail)
+                .orElseGet(() -> {
+                    User newUser = User.builder()
+                            .email(targetEmail)
+                            .name(request.getName() != null && !request.getName().isBlank() ? request.getName().trim() : "Khách hàng Google")
+                            .phone(request.getPhone() != null ? request.getPhone().trim() : "0973711868")
+                            .address(request.getAddress() != null ? request.getAddress().trim() : "249 Xã Đàn, Nam Đồng, Đống Đa, Hà Nội")
+                            .avatar(request.getAvatar() != null ? request.getAvatar().trim() : "")
+                            .password(passwordEncoder.encode(java.util.UUID.randomUUID().toString()))
+                            .role("ROLE_CUSTOMER")
+                            .build();
+                    return userRepository.save(newUser);
+                });
+
+        boolean updated = false;
+        if (request.getName() != null && !request.getName().isBlank() && !request.getName().equals(user.getName())) {
+            user.setName(request.getName().trim());
+            updated = true;
+        }
+        if (request.getAvatar() != null && !request.getAvatar().isBlank() && !request.getAvatar().equals(user.getAvatar())) {
+            user.setAvatar(request.getAvatar().trim());
+            updated = true;
+        }
+        if (request.getPhone() != null && !request.getPhone().isBlank() && (user.getPhone() == null || user.getPhone().isBlank())) {
+            user.setPhone(request.getPhone().trim());
+            updated = true;
+        }
+        if (request.getAddress() != null && !request.getAddress().isBlank() && (user.getAddress() == null || user.getAddress().isBlank())) {
+            user.setAddress(request.getAddress().trim());
+            updated = true;
+        }
+        if (updated) {
+            user = userRepository.save(user);
+        }
+
+        String token = tokenProvider.generateToken(user.getEmail(), user.getRole());
+
+        return AuthDTO.AuthResponse.builder()
+                .token(token)
+                .id(user.getId())
+                .email(user.getEmail())
+                .name(user.getName())
+                .phone(user.getPhone())
+                .address(user.getAddress())
+                .avatar(user.getAvatar())
+                .role(user.getRole())
+                .build();
+    }
+
+    public AuthDTO.AuthResponse updateProfile(String email, AuthDTO.UserProfileUpdate request) {
+        String targetEmail = (email != null && !email.isBlank()) ? email : request.getEmail();
+        if (targetEmail == null || targetEmail.isBlank()) {
+            throw new RuntimeException("Không xác định được email người dùng cần cập nhật!");
+        }
+
+        User user = userRepository.findByEmail(targetEmail.trim().toLowerCase())
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng với email: " + targetEmail));
+
+        if (request.getName() != null && !request.getName().isBlank()) user.setName(request.getName().trim());
+        if (request.getPhone() != null && !request.getPhone().isBlank()) user.setPhone(request.getPhone().trim());
+        if (request.getAddress() != null && !request.getAddress().isBlank()) user.setAddress(request.getAddress().trim());
+        if (request.getAvatar() != null && !request.getAvatar().isBlank()) user.setAvatar(request.getAvatar().trim());
 
         userRepository.save(user);
 
