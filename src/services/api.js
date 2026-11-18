@@ -211,11 +211,59 @@ export const api = {
   // 7. GEMINI AI ASSISTANT CHATBOT
   // -------------------------------------------------------------
   ai: {
-    chat: (message, history = []) =>
-      request('/api/ai/chat', {
-        method: 'POST',
-        body: JSON.stringify({ message, history })
-      }),
+    chat: async (message, history = []) => {
+      try {
+        const res = await request('/api/ai/chat', {
+          method: 'POST',
+          body: JSON.stringify({ message, history })
+        });
+        if (res && (res.reply || (res.suggestedProducts && res.suggestedProducts.length > 0))) {
+          return res;
+        }
+      } catch (err) {
+        console.warn('Backend /api/ai/chat chưa phản hồi, kích hoạt Local Smart Advisor:', err);
+      }
+
+      // Dự phòng thông minh ngay tại Client khi Backend đang khởi động hoặc offline
+      try {
+        const { NEW_ARRIVALS, FLASH_SALE_ITEMS } = await import('../data/products');
+        const all = [...NEW_ARRIVALS, ...FLASH_SALE_ITEMS];
+        const lower = String(message || '').toLowerCase();
+        let matched = [];
+
+        if (lower.includes('pickle') || lower.includes('tennis')) {
+          matched = all.filter(p => p.category === 'pickleball');
+        } else if (lower.includes('chạy') || lower.includes('run') || lower.includes('marathon') || lower.includes('êm')) {
+          matched = all.filter(p => p.category === 'running');
+          if (lower.includes('3 triệu') || lower.includes('dưới 3')) {
+            const under3m = matched.filter(p => p.price <= 3000000);
+            if (under3m.length > 0) matched = under3m;
+          }
+        } else if (lower.includes('gym') || lower.includes('tập') || lower.includes('tạ')) {
+          matched = all.filter(p => p.category === 'training');
+        } else if (lower.includes('nike')) {
+          matched = all.filter(p => p.brand === 'Nike');
+        } else if (lower.includes('adidas')) {
+          matched = all.filter(p => p.brand === 'Adidas');
+        } else if (lower.includes('asics')) {
+          matched = all.filter(p => p.brand === 'Asics');
+        } else {
+          matched = all;
+        }
+
+        return {
+          reply: 'Dưới đây là danh sách các mẫu giày thể thao chính hãng tối ưu nhất về độ êm ái, bám sân và hỗ trợ bảo vệ chân đang có sẵn tại TC SPORT:',
+          suggestedProducts: matched.slice(0, 5),
+          activeModel: 'Local-Client-Smart-Fallback'
+        };
+      } catch (e) {
+        return {
+          reply: 'Chào bạn! TC SPORT hiện có sẵn nhiều mẫu giày thể thao chính hãng (Nike, Adidas, Asics, Puma). Bạn hãy xem các mẫu nổi bật dưới đây nhé:',
+          suggestedProducts: [],
+          activeModel: 'Safe-Fallback'
+        };
+      }
+    },
     getStatus: () => request('/api/ai/status')
   }
 };
